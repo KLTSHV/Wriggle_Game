@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <random>
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h"  // Include the full definition of PowerUp
+#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h"  
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h"
 
 
@@ -11,7 +11,7 @@ Game::Game()
       snakeSpawnTimer(0), powerUpSpawnTimer(0), 
       isGameRunning(false), difficultyLevelTimer(0.0f), difficultyLevel(0), gameClock(), wallSpawnTimer(0)  {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    player = std::make_unique<Player>(); // Use smart pointer for better memory management
+    player = std::make_unique<Player>(); 
     menu = std::make_unique<Menu>();
     std::cout << "Error here 1" << std::endl;
     player->setPosition(400, 300);
@@ -142,7 +142,7 @@ void Game::update() {
         for (auto& snake : snakes) {
             if(snake){
             snake->move();
-            }  // Use '->' to call methods on unique_ptr
+            }  
         }
     }
     if(difficultyLevelTimer >= 30){
@@ -175,7 +175,7 @@ void Game::adjustDifficultyLevel(){
 void Game::render() {
     window.clear();
 
-    // Отрисовка игрока, змей, бонусов
+    // Отрисовка игрока, змей, бонусов и стен
     window.draw(*player);
 
     for (const auto& snake : snakes) {
@@ -204,25 +204,25 @@ void Game::spawnSnake() {
     float angle = 0;
 
     switch (side) {
-        case 0: // Top
+        case 0: // Cверху
             x = rand() % window.getSize().x;
             y = 0;
-            angle = static_cast<float>(rand() % 180 + 90); // угол от 90 до 270, т.е. вниз
+            angle = static_cast<float>(rand() % 180 + 90); // угол от 90 до 270, вниз
             break;
-        case 1: // Bottom
+        case 1: // Снизу
             x = rand() % window.getSize().x;
             y = window.getSize().y;
-            angle = static_cast<float>(rand() % 180); // угол от 0 до 180, т.е. вверх
+            angle = static_cast<float>(rand() % 180); // угол от 0 до 180, вверх
             break;
-        case 2: // Left
+        case 2: // Слева
             x = 0;
             y = rand() % window.getSize().y;
-            angle = static_cast<float>(rand() % 180 + 180); // угол от 180 до 360, т.е. вправо
+            angle = static_cast<float>(rand() % 180 + 180); // угол от 180 до 360, вправо
             break;
-        case 3: // Right
+        case 3: // Справа
             x = window.getSize().x;
             y = rand() % window.getSize().y;
-            angle = static_cast<float>(rand() % 180 + 270); // угол от 270 до 450, т.е. влево
+            angle = static_cast<float>(rand() % 180 + 270); // угол от 270 до 450, влево
             break;
     }
 
@@ -266,28 +266,28 @@ void Game::spawnPowerUp() {
 void Game::handleCollisions() {
     if(!snakes.empty()){
     for (auto it = snakes.begin(); it != snakes.end();) {
-        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) {  // Dereference unique_ptr
+        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) { 
             std::cout << "Collision detected with snake!" << std::endl;
 
             if (!player->isInvincible()) {
                 std::cout << "Player is not invincible, resetting game..." << std::endl;
-                resetGame();  // End the game if the player is not invincible
+                resetGame(); //Завершить игру если на игроке нет бафа неуязвимости
             }
 
 
         } else {
-            ++it;  // Continue iterating
+            ++it;
         }
     }}
 
-    // Check for collisions with power-ups
+    // Столкновение с бонусами
     for (auto it = powerUps.begin(); it != powerUps.end();) {
-        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) {  // Dereference unique_ptr
+        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) {  
             std::cout << "Power-up collected!" << std::endl;
-            activatePowerUp(*(*it));  // Activate the power-up
-            it = powerUps.erase(it);  // Safely erase the power-up and update iterator
+            activatePowerUp(*(*it));  
+            it = powerUps.erase(it);  
         } else {
-            ++it;  // Continue iterating
+            ++it;  
         }
     }
 }

@@ -8,25 +8,25 @@
 class Snake : public sf::Drawable {
 public:
     Snake();
-    void setPosition(float x, float y); // Set the position of the head
-    void setAngle(float angle);        // Set the movement angle
+    void setPosition(float x, float y); 
+    void setAngle(float angle);        
     void setSpeed(float speed);
-    void setSpeedPrevious(float speedPrevious);         // Set the movement speed
+    void setSpeedPrevious(float speedPrevious);         
     void setAmountOfSegments(int amount);
     void setSizeOfSegments(float size);
     float getSpeed(); 
     float getSpeedPrevious();
     bool isSnakeStopped();
     void grow();
-    void setScale(float x, float y);                       // Increase the length of the snake
-    void move();                       // Handle movement
+    void setScale(float x, float y);                       
+    void move();                       
     void makeStop();
     void updateTimers(float elapsedTime);
-    sf::FloatRect getGlobalBounds() const; // Get the bounds of the snake
+    sf::FloatRect getGlobalBounds() const; 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    // Destructor (not strictly necessary for unique_ptr, but good practice if you want to explicitly clear resources)
-    ~Snake() = default;
+    
+    ~Snake() = default; //Дописать, мб из-за этого ошибка
 
     int amountOfSegments;
     float sizeOfSegments;
@@ -34,11 +34,11 @@ public:
     
 
 private:
- // Store unique pointers to the segments of the snake
-    float speed;   // Movement speed
+ 
+    float speed;   
     float speedPrevious;
-    float angle;   // Movement angle in degrees
-    sf::Vector2f velocity; // Precomputed velocity for straight movement
+    float angle;   // Угол движения в градусах
+    sf::Vector2f velocity;
     bool isStopped = false;
     float StopTimer = 0;
 

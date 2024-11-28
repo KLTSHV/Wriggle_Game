@@ -54,7 +54,7 @@ bool Statistics::show(sf::RenderWindow& window) {
 }
 
 void Statistics::loadStatistics() {
-    // Пример загрузки статистики
+    
     stats["High Score"] = 1234;
     stats["Games Played"] = 56;
     stats["Total Time"] = 12345; // В секундах

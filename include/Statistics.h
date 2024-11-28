@@ -10,9 +10,9 @@ public:
     bool show(sf::RenderWindow& window);
 
 private:
-    void loadStatistics(); // Загрузить статистику
+    void loadStatistics();
 
-    std::map<std::string, int> stats; // Хранение статистики (пример: {"High Score": 1234})
+    std::map<std::string, int> stats; // Хранение статистики
 };
 
 #endif // STATISTICS_H

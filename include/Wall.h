@@ -15,7 +15,7 @@ public:
 
 private:
     sf::RectangleShape wallShape;
-    static constexpr float thickness = 20.0f; // Толщина стены фиксирована
+    static constexpr float thickness = 20.0f; // Толщина стены ФИКСИРОВАНА
 };
 
 #endif // WALL_H

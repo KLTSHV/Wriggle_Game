@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-// Forward declaration of Wall
+
 class Wall;
 
 class Player : public sf::Drawable {
@@ -16,7 +16,7 @@ public:
     void resetDash();
 
     void setPosition(float x, float y);
-    void move(sf::RenderWindow& window, float dx, float dy, const std::vector<std::unique_ptr<Wall>>& walls);
+    void move(sf::RenderWindow& window, float dx, float dy, const std::vector<std::unique_ptr<Wall> >& walls);
     void dash(float dx, float dy);
     void updateTimers(float elapsedSeconds);
     bool isInvincible() const;
@@ -33,9 +33,9 @@ public:
     
 private:
 
-    float dashTimer;      // Time elapsed since the last dash
-    bool canDash;         // Whether the player can dash
-    float dashDistance;   // Distance covered during the dash
+    float dashTimer;      
+    bool canDash;         
+    float dashDistance;   
     
     sf::Texture texture;
     bool invincible;

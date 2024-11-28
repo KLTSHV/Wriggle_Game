@@ -35,7 +35,7 @@ bool ChangeSkin::show(sf::RenderWindow& window) {
         window.clear();
         window.draw(title);
         window.draw(backButton);
-        // Добавьте логику отображения скинов (например, спрайты)
+        // Добавить логику отображения скинов
         window.display();
     }
 
@@ -43,12 +43,12 @@ bool ChangeSkin::show(sf::RenderWindow& window) {
 }
 
 void ChangeSkin::loadSkins() {
-    // Пример загрузки путей скинов
+    // Доработать
     skinPaths = {"assets/powerup.png", "assets/player.png"};
     selectedSkin = 0;
 }
 
 void ChangeSkin::handleMouseClick(sf::RenderWindow& window) {
-    // Логика обработки клика, например, смена выделенного скина
+    // Обработка клика, доработать
     std::cout << "Skin clicked: " << skinPaths[selectedSkin] << std::endl;
 }

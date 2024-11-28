@@ -7,14 +7,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <SFML/Graphics.hpp>
-#include "Player.h"  // Include the full definition
+#include "Player.h"  
 #include "Snake.h"
 #include "Wall.h"
 #include "Menu.h"
-#include "PowerUp.h" // Ensure this is included before using std::unique_ptr<PowerUp>
+#include "PowerUp.h" 
 
-
-// Forward declaration of Player
 class Player;
 class Snake;
 class PowerUp;

@@ -8,14 +8,14 @@ Snake::Snake()
       velocity(0, 0), 
       amountOfSegments(0), 
       sizeOfSegments(10.0f) {
-    // Add the head segment as a unique_ptr
+    
     segments.push_back(std::make_unique<sf::CircleShape>(sizeOfSegments));
     segments.back()->setFillColor(sf::Color::Green);
 }
 
 void Snake::setPosition(float x, float y) {
     if (!segments.empty()) {
-        segments[0]->setPosition(x, y);  // Use -> to dereference the unique_ptr
+        segments[0]->setPosition(x, y);  
     }
 }
 
@@ -43,21 +43,21 @@ void Snake::setSizeOfSegments(float size) {
 void Snake::grow() {
     if (segments.empty()) return;
 
-    // Get the position of the last segment
+    // Получить позицию последнего сегмента
     sf::Vector2f lastSegmentPosition = segments.back()->getPosition();
 
-    // Create new segments behind the last one
+    // Создать сегменты за головой
     for (int i = 0; i < amountOfSegments; ++i) {
-        // Create a new unique_ptr for each segment
+        
         auto newSegment = std::make_unique<sf::CircleShape>(sizeOfSegments);
         newSegment->setFillColor(sf::Color::Green);
 
-        // Adjust the position of the new segment based on the direction of movement
+        
         lastSegmentPosition.x -= sizeOfSegments * std::cos(angle);
         lastSegmentPosition.y -= sizeOfSegments * std::sin(angle);
         newSegment->setPosition(lastSegmentPosition);
 
-        // Push the new segment to the vector
+        
         segments.push_back(std::move(newSegment));
     }
 }

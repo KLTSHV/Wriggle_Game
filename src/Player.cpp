@@ -1,6 +1,6 @@
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h"
 
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Wall.h" // Add this
+#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Wall.h" 
 #include "iostream"
 
 Player::Player() : speed(8.0f), invincible(false), invincibilityTimer(0), speededUp(false), speededUpTimer(0) {
