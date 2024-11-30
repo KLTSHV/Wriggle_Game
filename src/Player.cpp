@@ -81,6 +81,12 @@ void Player::makeSpeededUp(){
 void Player::makeInvincible(){
     invincible = true;
     invincibilityTimer = 5.0f;
+
+}
+void Player::shrink(){
+    this->setScale(0.01f,0.01f);
+    shrinked = true;
+    shrinkedTimer = 7.0f;
 }
 void Player::reset() {
     invincible = false;
@@ -93,6 +99,7 @@ void Player::updateTimers(float elapsedSeconds) {
     invincibilityTimer -= elapsedSeconds;
     speededUpTimer -= elapsedSeconds;
     dashTimer += elapsedSeconds;
+    shrinkedTimer -= elapsedSeconds;
 
     if (invincibilityTimer <= 0) {
         invincible = false;
@@ -103,6 +110,10 @@ void Player::updateTimers(float elapsedSeconds) {
     }
     if (dashTimer >= 6.0f) {
         resetDash();
+    }
+    if(shrinkedTimer <= 0){
+        shrinked = false;
+        this->setScale(0.02, 0.02);
     }
 }
 

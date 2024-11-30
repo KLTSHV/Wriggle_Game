@@ -350,7 +350,7 @@ void Game::handleWallCollisions() {
 
 void Game::activatePowerUp(PowerUp& powerUp) {
     std::cout << "Power-up activated!" << std::endl;
-    int effect = 4; //rand() % 5;  // Example: 0 = speed up, 1 = invincibility
+    int effect = rand() % 5;  // Example: 0 = speed up, 1 = invincibility
     if (effect == 0) {
         player->makeSpeededUp();
         std::cout << "Start speeding-up" << std::endl;
@@ -375,8 +375,7 @@ void Game::activatePowerUp(PowerUp& powerUp) {
         }
     } else if (effect == 4){
         std::cout << "Shrink player" << std::endl;
-        player->setScale(0.1f, 0.1f);
-
+        player->shrink();
     }
 }
 

@@ -23,6 +23,7 @@ public:
     bool isSpeededUp() const;
     void activateRandomPowerUp();
     void reset();
+    void shrink();
     void setScale(float x, float y);
     float returnSpeed();
     void makeInvincible();
