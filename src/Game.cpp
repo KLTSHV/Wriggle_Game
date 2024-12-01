@@ -16,8 +16,30 @@ Game::Game()
     std::cout << "Error here 1" << std::endl;
     player->setPosition(400, 300);
     std::cout << "Error here 2" << std::endl;
-    
-    snakeSpawnDuration = 3.0f;
+
+    font.loadFromFile("assets/arial.ttf");  
+
+    timerText.setFont(font);
+    timerText.setCharacterSize(24);
+    timerText.setFillColor(sf::Color::White);
+    timerText.setPosition(10, 10);
+
+    // Шкала прогресса
+    progressBar.setSize(sf::Vector2f(200.f, 15.f)); // Уменьшенный размер шкалы
+    progressBar.setFillColor(sf::Color::Red);
+    progressBar.setPosition(10, 50); // Положение на экране
+
+    // Обводка шкалы прогресса
+    progressBarOutline.setSize(sf::Vector2f(200.f, 15.f));
+    progressBarOutline.setOutlineThickness(2.f); // Толщина обводки
+    progressBarOutline.setOutlineColor(sf::Color::White); // Цвет обводки
+    progressBarOutline.setFillColor(sf::Color::Transparent); // Прозрачная внутренняя часть
+    progressBarOutline.setPosition(progressBar.getPosition()); // Совпадение с положением шкалы
+
+    elapsedGameTime = 0.f;
+    progressBarFill = 0.f;
+
+   snakeSpawnDuration = 3.0f;
     powerUpSpawnDuration = 9.0f;
     menu->showWelcomeScreen(window);
     isGameRunning = true;
@@ -116,6 +138,16 @@ void Game::update() {
             }
         }
     }
+    elapsedGameTime += elapsedTime;
+    timerText.setString("Time: " + std::to_string(static_cast<int>(elapsedGameTime)) + "s");
+
+    // Обновление прогресса
+    progressBarFill += elapsedTime * (200.f / 30.f);
+    if (progressBarFill >= 200.f) {
+        progressBarFill = 0.f; // Сброс шкалы
+    }
+    progressBar.setSize(sf::Vector2f(progressBarFill, progressBar.getSize().y));
+
 
     // wallSpawnTimer += elapsedTime;
     // if (wallSpawnTimer >= wallSpawnDuration) {
@@ -190,6 +222,9 @@ void Game::render() {
     for (const auto& wall : walls) {
         window.draw(*wall);
     }
+    window.draw(timerText);
+    window.draw(progressBar);
+    window.draw(progressBarOutline);
 
     window.display();
 }
@@ -350,7 +385,7 @@ void Game::handleWallCollisions() {
 
 void Game::activatePowerUp(PowerUp& powerUp) {
     std::cout << "Power-up activated!" << std::endl;
-    int effect = rand() % 5;  // Example: 0 = speed up, 1 = invincibility
+    int effect = rand() % 5;  
     if (effect == 0) {
         player->makeSpeededUp();
         std::cout << "Start speeding-up" << std::endl;

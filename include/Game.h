@@ -49,6 +49,13 @@ private:
     
     bool erasingSnakesProcess = false;
 
+    sf::Font font;
+    sf::Text timerText;
+    float elapsedGameTime;
+    sf::RectangleShape progressBar;
+    float progressBarFill;
+    sf::RectangleShape progressBarOutline;
+
     sf::Clock gameClock;
     float dashTimer;
     float snakeSpawnTimer;
