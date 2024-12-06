@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <memory>
 #include <cstdlib>
@@ -40,6 +41,7 @@ private:
     void handleWallCollisions();
 
     sf::RenderWindow window;
+    sf::Music backgroundMusic;
     std::unique_ptr<Player> player;
     std::unique_ptr<Menu> menu;
     std::vector<std::unique_ptr<Snake> > snakes;

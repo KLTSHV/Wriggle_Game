@@ -9,7 +9,7 @@
 Game::Game() 
     : window(sf::VideoMode(800, 600), "Arcade Game"), 
       snakeSpawnTimer(0), powerUpSpawnTimer(0), 
-      isGameRunning(false), difficultyLevelTimer(0.0f), difficultyLevel(0), gameClock(), wallSpawnTimer(0)  {
+      isGameRunning(false), difficultyLevelTimer(0.0f), difficultyLevel(0), gameClock(), wallSpawnTimer(0) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     player = std::make_unique<Player>(); 
     menu = std::make_unique<Menu>();
@@ -24,6 +24,12 @@ Game::Game()
     timerText.setFillColor(sf::Color::White);
     timerText.setPosition(10, 10);
 
+    if (!backgroundMusic.openFromFile("assets/BackgroundAudio.mp3")) {
+        std::cout << "Error: Failed to load background music!" << std::endl;
+    } else {
+        backgroundMusic.setLoop(true);  
+        backgroundMusic.play();         
+    }
     // Шкала прогресса
     progressBar.setSize(sf::Vector2f(200.f, 15.f)); // Уменьшенный размер шкалы
     progressBar.setFillColor(sf::Color::Red);
@@ -415,10 +421,11 @@ void Game::activatePowerUp(PowerUp& powerUp) {
 }
 
 void Game::resetGame() {
+    backgroundMusic.stop();
+    // Очистка объектов игры
     snakes.clear();
     powerUps.clear();
     player->reset();
     isGameRunning = true;
     std::cout << "Game Over" << std::endl;
 }
-

@@ -1,7 +1,7 @@
 # Компилятор и флаги
 CXX = g++
 CXXFLAGS = -std=c++17 -fsanitize=address -g -Iinclude
-LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio  # Добавил -lsfml-audio
 
 # Папки
 SRC_DIR = src
