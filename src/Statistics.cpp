@@ -1,9 +1,10 @@
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Statistics.h"
-
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 bool Statistics::show(sf::RenderWindow& window) {
-    loadStatistics();
+    loadStatistics(); // Load the statistics from the file
 
     sf::Font font;
     font.loadFromFile("assets/arial.ttf");
@@ -36,7 +37,8 @@ bool Statistics::show(sf::RenderWindow& window) {
                 event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    return true; // Вернуться в меню
+                    saveStatistics(); // Save stats when going back
+                    return true; // Return to menu
                 }
             }
         }
@@ -54,8 +56,40 @@ bool Statistics::show(sf::RenderWindow& window) {
 }
 
 void Statistics::loadStatistics() {
-    
-    stats["High Score"] = 1234;
-    stats["Games Played"] = 56;
-    stats["Total Time"] = 12345; // В секундах
+    std::ifstream file("statistics.txt");
+
+    if (!file.is_open()) {
+        // If file doesn't exist, initialize with default values
+        stats["High Score"] = 1234;
+        stats["Games Played"] = 56;
+        stats["Total Time"] = 12345;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream ss(line);
+        std::string key;
+        int value;
+        if (std::getline(ss, key, ':') && ss >> value) {
+            stats[key] = value;
+        }
+    }
+
+    file.close();
+}
+
+void Statistics::saveStatistics() {
+    std::ofstream file("statistics.txt");
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to open statistics file for saving!" << std::endl;
+        return;
+    }
+
+    for (const auto& stat : stats) {
+        file << stat.first << ":" << stat.second << std::endl;
+    }
+
+    file.close();
 }

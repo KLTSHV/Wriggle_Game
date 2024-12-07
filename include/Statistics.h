@@ -8,9 +8,10 @@
 class Statistics {
 public:
     bool show(sf::RenderWindow& window);
+    void loadStatistics();
+    void saveStatistics();
 
 private:
-    void loadStatistics();
 
     std::map<std::string, int> stats; // Хранение статистики
 };

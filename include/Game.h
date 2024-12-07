@@ -24,11 +24,16 @@ class Game {
 public:
     Game();
     void run();
-    
+    void setGameRunning(bool value) {
+        isGameRunning = value;
+    }
+    bool startTheGame = false;
+    sf::Clock gameClock;
 private:
     void processEvents();
     void update();
     void render();
+    void handlePlayerInput(sf::Keyboard::Key key);
     
     void resetGame();
     void spawnSnake();
@@ -39,6 +44,7 @@ private:
     void adjustDifficultyLevel();
     void spawnWall();
     void handleWallCollisions();
+    
 
     sf::RenderWindow window;
     sf::Music backgroundMusic;
@@ -58,18 +64,18 @@ private:
     float progressBarFill;
     sf::RectangleShape progressBarOutline;
 
-    sf::Clock gameClock;
     float dashTimer;
     float snakeSpawnTimer;
     float powerUpSpawnTimer;
     float wallSpawnTimer;
-    bool isGameRunning;
+    bool isGameRunning = false;
     float difficultyLevelTimer;
     int difficultyLevel;
     float wallSpawnDuration = 5.0f;
     bool isSnakesStopped = false;
     float snakeSpawnDuration;
     float powerUpSpawnDuration;
+    
 };
 
 #endif // GAME_H

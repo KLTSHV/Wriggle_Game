@@ -3,16 +3,16 @@
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h"
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Statistics.h"
 
-void Menu::showWelcomeScreen(sf::RenderWindow& window) {
+#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h"  // Include Game.h here, where the full definition is needed
+
+bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
     sf::Font font;
     font.loadFromFile("assets/arial.ttf");
 
-    // Заголовок
     sf::Text title("Arcade Game", font, 50);
     title.setFillColor(sf::Color::White);
     title.setPosition(250, 100);
 
-    // Опции меню
     sf::Text start("Start Game", font, 30);
     start.setFillColor(sf::Color::White);
     start.setPosition(250, 250);
@@ -40,16 +40,15 @@ void Menu::showWelcomeScreen(sf::RenderWindow& window) {
                 event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
-                // Проверяем, попадает ли мышь в текст
                 if (start.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    return; // Переход к игре
+                    // Изменяем флаг через объект game
+                    game.setGameRunning(true); // Теперь игра начнется
+                    return true; // Выход из меню
                 }
                 if (changeSkin.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    // Логика для смены скина
                     this->handleChangeSkin(window);
                 }
                 if (statistics.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    // Логика для отображения статистики
                     this->handleStatistics(window);
                 }
                 if (exit.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
@@ -58,7 +57,6 @@ void Menu::showWelcomeScreen(sf::RenderWindow& window) {
             }
         }
 
-        // Рисуем меню
         window.clear();
         window.draw(title);
         window.draw(start);

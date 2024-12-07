@@ -2,6 +2,8 @@
 
 int main() {
     Game game;
+    if(game.startTheGame){
+    game.gameClock.restart();
     game.run();
-    return 0;
+    return 0;}
 }

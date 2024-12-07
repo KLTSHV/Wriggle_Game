@@ -11,12 +11,13 @@ Game::Game()
       snakeSpawnTimer(0), powerUpSpawnTimer(0), 
       isGameRunning(false), difficultyLevelTimer(0.0f), difficultyLevel(0), gameClock(), wallSpawnTimer(0) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    player = std::make_unique<Player>(); 
     menu = std::make_unique<Menu>();
+   startTheGame = menu->showWelcomeScreen(window, *this);
+    player = std::make_unique<Player>(); 
     std::cout << "Error here 1" << std::endl;
     player->setPosition(400, 300);
     std::cout << "Error here 2" << std::endl;
-
+    
     font.loadFromFile("assets/arial.ttf");  
 
     timerText.setFont(font);
@@ -47,18 +48,24 @@ Game::Game()
 
    snakeSpawnDuration = 3.0f;
     powerUpSpawnDuration = 9.0f;
-    menu->showWelcomeScreen(window);
-    isGameRunning = true;
-}
+   }
+
 
 
 void Game::run() {
     while (window.isOpen()) {
-        processEvents();
-        if (isGameRunning) {
+        std::cout << elapsedGameTime << std::endl;
+
+        if (isGameRunning && startTheGame) {
+            std::cout << "DoUpdates" << std::endl;
             update();
             render();
+            processEvents();
+        } else{
+            gameClock.restart();
+            std::cout << "Dorestart" << std::endl;
         }
+        
     }
 }
 
@@ -69,7 +76,7 @@ void Game::processEvents() {
             window.close();
         }
 
-        if (isGameRunning) {
+        if (isGameRunning && startTheGame) {
             if (event.type == sf::Event::KeyPressed) {
                 float speed = player->returnSpeed();
                 float diagonalFactor = 1.0f / std::sqrt(2.0f); // Нормализация диагональной скорости
@@ -145,6 +152,7 @@ void Game::update() {
         }
     }
     elapsedGameTime += elapsedTime;
+    std::cout << "Update Timer" << std::endl;
     timerText.setString("Time: " + std::to_string(static_cast<int>(elapsedGameTime)) + "s");
 
     // Обновление прогресса
