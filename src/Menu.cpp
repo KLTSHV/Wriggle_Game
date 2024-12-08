@@ -42,6 +42,7 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
 
                 if (start.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
                     // Изменяем флаг через объект game
+                    
                     game.setGameRunning(true); // Теперь игра начнется
                     return true; // Выход из меню
                 }

@@ -5,5 +5,6 @@ int main() {
     if(game.startTheGame){
     game.gameClock.restart();
     game.run();
+    
     return 0;}
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <random>
+#include <fstream>
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h"  
 #include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h"
 
@@ -61,10 +62,7 @@ void Game::run() {
             update();
             render();
             processEvents();
-        } else{
-            gameClock.restart();
-            std::cout << "Dorestart" << std::endl;
-        }
+        } 
         
     }
 }
@@ -428,6 +426,42 @@ void Game::activatePowerUp(PowerUp& powerUp) {
     }
 }
 
+void Game::saveStatistics(const std::string& fileName) {
+    stats gameStats{0, 0, 0};
+    std::ifstream inputFile(fileName);
+
+    if (inputFile.is_open()) {
+        std::string line;
+        while (std::getline(inputFile, line)) {
+            if (line.find("Games Played:") != std::string::npos) {
+                gameStats.gamesPlayed = std::stoi(line.substr(line.find(':') + 1));
+            } else if (line.find("High Score:") != std::string::npos) {
+                gameStats.highScore = std::stoi(line.substr(line.find(':') + 1));
+            } else if (line.find("Total Time:") != std::string::npos) {
+                gameStats.totalTime = std::stoi(line.substr(line.find(':') + 1));
+            }
+        }
+        inputFile.close();
+    }
+
+    // Update statistics
+    gameStats.gamesPlayed += 1;
+    gameStats.totalTime += static_cast<int>(elapsedGameTime);
+    gameStats.highScore = gameStats.highScore ? gameStats.highScore < static_cast<int>(elapsedGameTime) : static_cast<int>(elapsedGameTime);
+    // Assume highScore logic is updated elsewhere
+
+    std::ofstream outputFile(fileName);
+    if (outputFile.is_open()) {
+        outputFile << "Games Played:" << gameStats.gamesPlayed << '\n';
+        outputFile << "High Score:" << gameStats.highScore << '\n';
+        outputFile << "Total Time:" << gameStats.totalTime << '\n';
+        outputFile.close();
+    } else {
+        std::cerr << "Unable to open file for writing.\n";
+    }
+}
+
+
 void Game::resetGame() {
     backgroundMusic.stop();
     // Очистка объектов игры
@@ -435,5 +469,8 @@ void Game::resetGame() {
     powerUps.clear();
     player->reset();
     isGameRunning = true;
+    this->saveStatistics("statistics.txt");
+    menu -> showWelcomeScreen(window, *this);
+
     std::cout << "Game Over" << std::endl;
 }
