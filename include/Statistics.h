@@ -10,9 +10,7 @@ public:
     bool show(sf::RenderWindow& window);
     void loadStatistics();
     void saveStatistics();
-
 private:
-
     std::map<std::string, int> stats; // Хранение статистики
 };
 

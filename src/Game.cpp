@@ -13,12 +13,11 @@ Game::Game()
       isGameRunning(false), difficultyLevelTimer(0.0f), difficultyLevel(0), gameClock(), wallSpawnTimer(0) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     menu = std::make_unique<Menu>();
-   startTheGame = menu->showWelcomeScreen(window, *this);
+    startTheGame = menu->showWelcomeScreen(window, *this);
     player = std::make_unique<Player>(); 
     std::cout << "Error here 1" << std::endl;
     player->setPosition(400, 300);
     std::cout << "Error here 2" << std::endl;
-    
     font.loadFromFile("assets/arial.ttf");  
 
     timerText.setFont(font);
@@ -47,12 +46,9 @@ Game::Game()
     elapsedGameTime = 0.f;
     progressBarFill = 0.f;
 
-   snakeSpawnDuration = 3.0f;
+    snakeSpawnDuration = 3.0f;
     powerUpSpawnDuration = 9.0f;
    }
-
-
-
 void Game::run() {
     while (window.isOpen()) {
         std::cout << elapsedGameTime << std::endl;
@@ -66,21 +62,17 @@ void Game::run() {
         
     }
 }
-
 void Game::processEvents() {
     sf::Event event;
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
-
         if (isGameRunning && startTheGame) {
             if (event.type == sf::Event::KeyPressed) {
                 float speed = player->returnSpeed();
                 float diagonalFactor = 1.0f / std::sqrt(2.0f); // Нормализация диагональной скорости
-                
                 sf::Vector2f moveOffset(0.f, 0.f);
-
                 if (event.key.code == sf::Keyboard::W) {
                     moveOffset.y = -speed;
                 } if (event.key.code == sf::Keyboard::S) {
@@ -90,7 +82,6 @@ void Game::processEvents() {
                 } if (event.key.code == sf::Keyboard::D) {
                     moveOffset.x = speed;
                 }
-
                 // Проверка для диагонального движения
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
                     moveOffset.x = speed * diagonalFactor;
@@ -104,16 +95,13 @@ void Game::processEvents() {
                 }if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                     moveOffset.x = -speed * diagonalFactor;
                     moveOffset.y = speed * diagonalFactor;
-                } 
-                    
+                }
                 // Проверка на столкновение перед движением
                 sf::Vector2f newPosition = player->sprite.getPosition() + moveOffset;
-                sf::FloatRect newBounds = player->getGlobalBounds();
-                
+                sf::FloatRect newBounds = player->getGlobalBounds();                
                 newBounds.left += moveOffset.x;
                 newBounds.top += moveOffset.y;
-                
-
+            
                 bool collision = false;
                 for (const auto& wall : walls) {
                     if (newBounds.intersects(wall->getGlobalBounds())) {

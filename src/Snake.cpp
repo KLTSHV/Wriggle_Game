@@ -1,4 +1,4 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Snake.h"
+#include "../include/Snake.h"
 #include <cmath>
 #include <memory>
 

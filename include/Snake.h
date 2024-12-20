@@ -24,24 +24,17 @@ public:
     void updateTimers(float elapsedTime);
     sf::FloatRect getGlobalBounds() const; 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-    
     ~Snake() = default; //Дописать, мб из-за этого ошибка
-
     int amountOfSegments;
     float sizeOfSegments;
     std::vector<std::unique_ptr<sf::CircleShape> > segments;
-    
-
 private:
- 
     float speed;   
     float speedPrevious;
     float angle;   // Угол движения в градусах
     sf::Vector2f velocity;
     bool isStopped = false;
     float StopTimer = 0;
-
 };
 
 #endif // SNAKE_H

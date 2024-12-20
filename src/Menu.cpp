@@ -1,9 +1,8 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h"
+#include "../include/Menu.h"
 #include <iostream>
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h"
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Statistics.h"
-
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h"  // Include Game.h here, where the full definition is needed
+#include "../include/ChangeSkin.h"
+#include "../include/Statistics.h"
+#include "../include/Game.h"  // Include Game.h here, where the full definition is needed
 
 bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
     sf::Font font;
@@ -57,7 +56,6 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
                 }
             }
         }
-
         window.clear();
         window.draw(title);
         window.draw(start);

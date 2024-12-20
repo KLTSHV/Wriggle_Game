@@ -1,4 +1,4 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Statistics.h"
+#include "../include/Statistics.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

@@ -1,4 +1,4 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Wall.h"
+#include "../include/Wall.h"
 
 Wall::Wall() {
     wallShape.setFillColor(sf::Color(128, 128, 128)); // Серый цвет

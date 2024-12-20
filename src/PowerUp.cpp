@@ -1,4 +1,4 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h"
+#include "../include/PowerUp.h"
 
 PowerUp::PowerUp() {
     texture.loadFromFile("assets/powerup.png");

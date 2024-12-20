@@ -30,7 +30,7 @@ public:
     }
     bool startTheGame = false;
     sf::Clock gameClock;
-    std::unique_ptr<Menu> menu;
+    std::unique_ptr<Menu> menu; 
      sf::RenderWindow window;
        void resetGame();
        bool isGameRunning = false;
