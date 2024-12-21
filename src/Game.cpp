@@ -18,14 +18,14 @@ Game::Game()
     std::cout << "Error here 1" << std::endl;
     player->setPosition(400, 300);
     std::cout << "Error here 2" << std::endl;
-    font.loadFromFile("assets/arial.ttf");  
+    font.loadFromFile("../assets/arial.ttf");  
 
     timerText.setFont(font);
     timerText.setCharacterSize(24);
     timerText.setFillColor(sf::Color::White);
     timerText.setPosition(10, 10);
 
-    if (!backgroundMusic.openFromFile("assets/BackgroundAudio.mp3")) {
+    if (!backgroundMusic.openFromFile("../assets/BackgroundAudio.mp3")) {
         std::cout << "Error: Failed to load background music!" << std::endl;
     } else {
         backgroundMusic.setLoop(true);  

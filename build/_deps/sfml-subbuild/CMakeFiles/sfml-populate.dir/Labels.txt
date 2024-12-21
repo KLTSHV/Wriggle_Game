@@ -1,0 +1,14 @@
+# Target labels
+ sfml-populate
+# Source files and their labels
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test.rule
+/Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update.rule

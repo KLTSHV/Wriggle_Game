@@ -1,25 +1,18 @@
 # Компилятор и флаги
 CXX = g++
-CXXFLAGS = -std=c++17 -g -Iinclude
+CXXFLAGS = -std=c++17 -fsanitize=address -g -Iinclude
 
-# Платформозависимые настройки
+# Платформо-зависимые настройки
 ifeq ($(OS), Windows_NT)
-    # Windows
-    LDFLAGS = -Lpath_to_sfml/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-    SFML_BIN = path_to_sfml/bin
-    EXECUTABLE = arcade_game.exe
+    LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+    EXECUTABLE_EXT = .exe
+    RM = del /Q /F
+    MKDIR = if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
 else
-    # macOS/Linux
-    UNAME_S := $(shell uname)
-    ifeq ($(UNAME_S), Darwin)
-        # macOS
-        LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-        DYLD_EXPORT = export DYLD_LIBRARY_PATH=/opt/homebrew/lib:$$DYLD_LIBRARY_PATH && 
-    else
-        # Linux
-        LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-    endif
-    EXECUTABLE = arcade_game
+    LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+    EXECUTABLE_EXT =
+    RM = rm -rf
+    MKDIR = mkdir -p
 endif
 
 # Папки
@@ -30,43 +23,37 @@ INC_DIR = include
 # Файлы
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SOURCES))
+EXECUTABLE = arcade_game$(EXECUTABLE_EXT)
+
+# Условие для библиотеки на macOS
+ifeq ($(shell uname), Darwin)
+    DYLD_EXPORT = export DYLD_LIBRARY_PATH=/opt/homebrew/lib:$$DYLD_LIBRARY_PATH &&
+else
+    DYLD_EXPORT =
+endif
 
 # Основное правило
 all: $(EXECUTABLE)
 
 # Создание исполняемого файла
 $(EXECUTABLE): $(OBJECTS)
-ifeq ($(OS), Windows_NT)
-	@$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
-	@cp $(SFML_BIN)/*.dll .
-else
-	@$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
-endif
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 # Компиляция объектных файлов
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Создание директории для объектных файлов
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+	$(MKDIR)
 
 # Очистка
 clean:
-	@rm -rf $(OBJ_DIR) $(EXECUTABLE)
-ifeq ($(OS), Windows_NT)
-	@rm -f *.dll
-endif
+	$(RM) $(OBJ_DIR)\* $(EXECUTABLE)
 
 # Запуск игры
 run: $(EXECUTABLE)
-ifeq ($(OS), Windows_NT)
-	@./$(EXECUTABLE)
-else ifeq ($(UNAME_S), Darwin)
-	@$(DYLD_EXPORT) ./$(EXECUTABLE)
-else
-	@./$(EXECUTABLE)
-endif
+	$(DYLD_EXPORT) ./$(EXECUTABLE)
 
 # Условные цели
 .PHONY: all clean run

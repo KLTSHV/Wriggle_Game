@@ -4,10 +4,16 @@
 #include <sstream>
 
 bool Statistics::show(sf::RenderWindow& window) {
-    loadStatistics(); // Load the statistics from the file
+    if (!loadResources()) {  // Ensure statistics are loaded successfully
+        std::cerr << "Failed to load statistics!" << std::endl;
+        return false;
+    }
 
     sf::Font font;
-    font.loadFromFile("assets/arial.ttf");
+    if (!font.loadFromFile("../assets/arial.ttf")) {
+        std::cerr << "Error loading font from assets/arial.ttf" << std::endl;
+        return false;
+    }
 
     sf::Text title("Statistics", font, 40);
     title.setFillColor(sf::Color::White);
@@ -32,13 +38,16 @@ bool Statistics::show(sf::RenderWindow& window) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return false;
             }
             if (event.type == sf::Event::MouseButtonPressed &&
                 event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    saveStatistics(); // Save stats when going back
-                    return true; // Return to menu
+                    if (!saveStatistics()) {
+                        std::cerr << "Failed to save statistics!" << std::endl;
+                    }
+                    return true;  // Return to menu
                 }
             }
         }
@@ -55,7 +64,11 @@ bool Statistics::show(sf::RenderWindow& window) {
     return false;
 }
 
-void Statistics::loadStatistics() {
+bool Statistics::loadResources() {
+    return loadStatistics();  // Delegate to the private loader
+}
+
+bool Statistics::loadStatistics() {
     std::ifstream file("statistics.txt");
 
     if (!file.is_open()) {
@@ -63,7 +76,7 @@ void Statistics::loadStatistics() {
         stats["High Score"] = 1234;
         stats["Games Played"] = 56;
         stats["Total Time"] = 12345;
-        return;
+        return true;
     }
 
     std::string line;
@@ -77,14 +90,15 @@ void Statistics::loadStatistics() {
     }
 
     file.close();
+    return true;
 }
 
-void Statistics::saveStatistics() {
+bool Statistics::saveStatistics() {
     std::ofstream file("statistics.txt");
 
     if (!file.is_open()) {
         std::cerr << "Failed to open statistics file for saving!" << std::endl;
-        return;
+        return false;
     }
 
     for (const auto& stat : stats) {
@@ -92,4 +106,5 @@ void Statistics::saveStatistics() {
     }
 
     file.close();
+    return true;
 }

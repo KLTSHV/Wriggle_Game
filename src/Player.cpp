@@ -3,7 +3,7 @@
 #include "iostream"
 
 Player::Player() : speed(8.0f), invincible(false), invincibilityTimer(0), speededUp(false), speededUpTimer(0) {
-    texture.loadFromFile("assets/player.png");
+    texture.loadFromFile("../assets/player.png");
     std::cout << "Error here pa" << std::endl;
     sprite.setTexture(texture);
     std::cout << "Error here pb" << std::endl;

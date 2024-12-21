@@ -1,12 +1,17 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h"
-
+#include "../include/ChangeSkin.h"
 #include <iostream>
 
 bool ChangeSkin::show(sf::RenderWindow& window) {
-    loadSkins();
+    if (!loadResources()) {  // Ensure resources are loaded successfully
+        std::cerr << "Failed to load resources for ChangeSkin!" << std::endl;
+        return false;
+    }
 
     sf::Font font;
-    font.loadFromFile("assets/arial.ttf");
+    if (!font.loadFromFile("../assets/arial.ttf")) {
+        std::cerr << "Error loading font from assets/arial.ttf" << std::endl;
+        return false;
+    }
 
     sf::Text title("Change Skin", font, 40);
     title.setFillColor(sf::Color::White);
@@ -21,12 +26,13 @@ bool ChangeSkin::show(sf::RenderWindow& window) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return false;
             }
             if (event.type == sf::Event::MouseButtonPressed &&
                 event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (backButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
-                    return true; // Вернуться в меню
+                    return true;  // Go back to the menu
                 }
                 handleMouseClick(window);
             }
@@ -35,20 +41,30 @@ bool ChangeSkin::show(sf::RenderWindow& window) {
         window.clear();
         window.draw(title);
         window.draw(backButton);
-        // Добавить логику отображения скинов
         window.display();
     }
 
     return false;
 }
 
-void ChangeSkin::loadSkins() {
-    // Доработать
-    skinPaths = {"assets/powerup.png", "assets/player.png"};
+bool ChangeSkin::loadResources() {
+    return loadSkins();  // Delegate to the private skin loader
+}
+
+bool ChangeSkin::loadSkins() {
+    // Example of predefined skin paths
+    skinPaths = {"../assets/powerup.png", "../assets/player.png"};
+    if (skinPaths.empty()) {
+        std::cerr << "No skins found to load!" << std::endl;
+        return false;
+    }
     selectedSkin = 0;
+    return true;
 }
 
 void ChangeSkin::handleMouseClick(sf::RenderWindow& window) {
-    // Обработка клика, доработать
-    std::cout << "Skin clicked: " << skinPaths[selectedSkin] << std::endl;
+    // Handle mouse click on skins
+    if (!skinPaths.empty() && selectedSkin < skinPaths.size()) {
+        std::cout << "Skin clicked: " << skinPaths[selectedSkin] << std::endl;
+    }
 }
