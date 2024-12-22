@@ -1,14 +1,40 @@
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h"
+#include "../include/Game.h"
 #include <iostream>
 #include <cmath>
 #include <random>
 #include <fstream>
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h"  
-#include "/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h"
+#include "../include/PowerUp.h"  
+#include "../include/Player.h"
 
+
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 600;
+constexpr int FONT_SIZE = 24;
+constexpr int PLAYER_POSITION_X = 400;
+constexpr int PLAYER_POSITION_Y = 300;
+constexpr int TIMERTEXT_POSITION_X = 10;
+constexpr int TIMERTEXT_POSITION_Y = 10;
+constexpr int PROGRESSBAR_POSITION_X = 10;
+constexpr int PROGRESSBAR_POSITION_Y = 50;
+constexpr float PROGRESS_BAR_WIDTH = 200.f;
+constexpr float PROGRESS_BAR_HEIGHT = 15.f;
+constexpr float PROGRESS_BAR_OUTLINE_THICKNESS = 2.f;
+constexpr float PROGRESS_INCREMENT = PROGRESS_BAR_WIDTH / 30.f;
+constexpr float SNAKE_SPAWN_DURATION_INITIAL = 3.0f;
+constexpr float POWER_UP_SPAWN_DURATION_INITIAL = 9.0f;
+constexpr float DIAGONAL_SPEED_FACTOR = 1.0f / 1.414213562f;
+constexpr float WALL_MIN_LENGTH = 100.0f;
+constexpr float WALL_MAX_LENGTH = 300.0f;
+constexpr float WALL_MIN_OFFSET = 50.0f;
+constexpr int DIFFICULTY_LEVEL_UP_INTERVAL = 30;
+constexpr int MAX_DIFFICULTY_LEVEL = 5;
+constexpr float SNAKE_SPEED_MIN = 0.05f;
+constexpr float SNAKE_SPEED_MAX = 0.5f;
+constexpr float SNAKE_SEGMENT_SIZE_MIN = 8.0f;
+constexpr float SNAKE_SEGMENT_SIZE_MAX = 20.0f;
 
 Game::Game() 
-    : window(sf::VideoMode(800, 600), "Arcade Game"), 
+    : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Arcade Game"), 
       snakeSpawnTimer(0), powerUpSpawnTimer(0), 
       isGameRunning(false), difficultyLevelTimer(0.0f), difficultyLevel(0), gameClock(), wallSpawnTimer(0) {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -16,14 +42,14 @@ Game::Game()
     startTheGame = menu->showWelcomeScreen(window, *this);
     player = std::make_unique<Player>(); 
     std::cout << "Error here 1" << std::endl;
-    player->setPosition(400, 300);
+    player->setPosition(PLAYER_POSITION_X, PLAYER_POSITION_Y);
     std::cout << "Error here 2" << std::endl;
     font.loadFromFile("../assets/arial.ttf");  
 
     timerText.setFont(font);
-    timerText.setCharacterSize(24);
+    timerText.setCharacterSize(FONT_SIZE);
     timerText.setFillColor(sf::Color::White);
-    timerText.setPosition(10, 10);
+    timerText.setPosition(TIMERTEXT_POSITION_X, TIMERTEXT_POSITION_Y);
 
     if (!backgroundMusic.openFromFile("../assets/BackgroundAudio.mp3")) {
         std::cout << "Error: Failed to load background music!" << std::endl;
@@ -32,13 +58,13 @@ Game::Game()
         backgroundMusic.play();         
     }
     // Шкала прогресса
-    progressBar.setSize(sf::Vector2f(200.f, 15.f)); // Уменьшенный размер шкалы
+    progressBar.setSize(sf::Vector2f(PROGRESS_BAR_WIDTH, PROGRESS_BAR_HEIGHT)); // Уменьшенный размер шкалы
     progressBar.setFillColor(sf::Color::Red);
-    progressBar.setPosition(10, 50); // Положение на экране
+    progressBar.setPosition(PROGRESSBAR_POSITION_X, PROGRESSBAR_POSITION_Y); // Положение на экране
 
     // Обводка шкалы прогресса
-    progressBarOutline.setSize(sf::Vector2f(200.f, 15.f));
-    progressBarOutline.setOutlineThickness(2.f); // Толщина обводки
+    progressBarOutline.setSize(sf::Vector2f(PROGRESS_BAR_WIDTH, PROGRESS_BAR_HEIGHT));
+    progressBarOutline.setOutlineThickness(PROGRESS_BAR_OUTLINE_THICKNESS); // Толщина обводки
     progressBarOutline.setOutlineColor(sf::Color::White); // Цвет обводки
     progressBarOutline.setFillColor(sf::Color::Transparent); // Прозрачная внутренняя часть
     progressBarOutline.setPosition(progressBar.getPosition()); // Совпадение с положением шкалы
@@ -46,8 +72,8 @@ Game::Game()
     elapsedGameTime = 0.f;
     progressBarFill = 0.f;
 
-    snakeSpawnDuration = 3.0f;
-    powerUpSpawnDuration = 9.0f;
+    snakeSpawnDuration = SNAKE_SPAWN_DURATION_INITIAL;
+    powerUpSpawnDuration = POWER_UP_SPAWN_DURATION_INITIAL;
    }
 void Game::run() {
     while (window.isOpen()) {
@@ -71,7 +97,7 @@ void Game::processEvents() {
         if (isGameRunning && startTheGame) {
             if (event.type == sf::Event::KeyPressed) {
                 float speed = player->returnSpeed();
-                float diagonalFactor = 1.0f / std::sqrt(2.0f); // Нормализация диагональной скорости
+                float diagonalFactor = DIAGONAL_SPEED_FACTOR; // Нормализация диагональной скорости
                 sf::Vector2f moveOffset(0.f, 0.f);
                 if (event.key.code == sf::Keyboard::W) {
                     moveOffset.y = -speed;
@@ -142,8 +168,8 @@ void Game::update() {
     timerText.setString("Time: " + std::to_string(static_cast<int>(elapsedGameTime)) + "s");
 
     // Обновление прогресса
-    progressBarFill += elapsedTime * (200.f / 30.f);
-    if (progressBarFill >= 200.f) {
+    progressBarFill += elapsedTime * (PROGRESS_INCREMENT);
+    if (progressBarFill >= PROGRESS_BAR_WIDTH) {
         progressBarFill = 0.f; // Сброс шкалы
     }
     progressBar.setSize(sf::Vector2f(progressBarFill, progressBar.getSize().y));
@@ -177,7 +203,7 @@ void Game::update() {
             }  
         }
     }
-    if(difficultyLevelTimer >= 30){
+    if(difficultyLevelTimer >= DIFFICULTY_LEVEL_UP_INTERVAL){
         this->adjustDifficultyLevel();
         difficultyLevelTimer = 0;
         walls.clear();
@@ -335,7 +361,7 @@ void Game::spawnWall() {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> distX(50.0f, window.getSize().x - 50.0f);
     std::uniform_real_distribution<float> distY(50.0f, window.getSize().y - 50.0f);
-    std::uniform_real_distribution<float> distLength(100.0f, 300.0f);
+    std::uniform_real_distribution<float> distLength(WALL_MIN_LENGTH, WALL_MAX_LENGTH);
     std::uniform_int_distribution<int> orientationDist(0, 1);
 
     float x = distX(gen);

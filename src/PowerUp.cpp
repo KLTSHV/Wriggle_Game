@@ -1,9 +1,14 @@
 #include "../include/PowerUp.h"
 
+// Constants
+const std::string POWERUP_TEXTURE_PATH = "assets/powerup.png";
+const float SCALE_X = 0.01f;
+const float SCALE_Y = 0.01f;
+
 PowerUp::PowerUp() {
-    texture.loadFromFile("assets/powerup.png");
+    texture.loadFromFile(POWERUP_TEXTURE_PATH);
     sprite.setTexture(texture);
-    sprite.setScale(0.01f, 0.01f);
+    sprite.setScale(SCALE_X, SCALE_Y);
 }
 
 void PowerUp::setPosition(float x, float y) {

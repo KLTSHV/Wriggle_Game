@@ -4,6 +4,21 @@
 #include "../include/Statistics.h"
 #include "../include/Game.h"
 
+// Константы
+constexpr int TITLE_FONT_SIZE = 50;
+constexpr int OPTION_FONT_SIZE = 30;
+ sf::Color TEXT_COLOR = sf::Color::White;
+constexpr float TITLE_X = 250.0f;
+constexpr float TITLE_Y = 100.0f;
+constexpr float START_X = 250.0f;
+constexpr float START_Y = 250.0f;
+constexpr float CHANGE_SKIN_X = 250.0f;
+constexpr float CHANGE_SKIN_Y = 300.0f;
+constexpr float STATISTICS_X = 250.0f;
+constexpr float STATISTICS_Y = 350.0f;
+constexpr float EXIT_X = 250.0f;
+constexpr float EXIT_Y = 400.0f;
+
 bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
     sf::Font font;
     if (!font.loadFromFile("../assets/arial.ttf")) {
@@ -11,25 +26,25 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
         return false; // Exit if font loading fails
     }
 
-    sf::Text title("Arcade Game", font, 50);
-    title.setFillColor(sf::Color::White);
-    title.setPosition(250, 100);
+    sf::Text title("Arcade Game", font, TITLE_FONT_SIZE);
+    title.setFillColor(TEXT_COLOR);
+    title.setPosition(TITLE_X, TITLE_Y);
 
-    sf::Text start("Start Game", font, 30);
-    start.setFillColor(sf::Color::White);
-    start.setPosition(250, 250);
+    sf::Text start("Start Game", font, OPTION_FONT_SIZE);
+    start.setFillColor(TEXT_COLOR);
+    start.setPosition(START_X, START_Y);
 
-    sf::Text changeSkin("Change Skin", font, 30);
-    changeSkin.setFillColor(sf::Color::White);
-    changeSkin.setPosition(250, 300);
+    sf::Text changeSkin("Change Skin", font, OPTION_FONT_SIZE);
+    changeSkin.setFillColor(TEXT_COLOR);
+    changeSkin.setPosition(CHANGE_SKIN_X, CHANGE_SKIN_Y);
 
-    sf::Text statistics("Statistics", font, 30);
-    statistics.setFillColor(sf::Color::White);
-    statistics.setPosition(250, 350);
+    sf::Text statistics("Statistics", font, OPTION_FONT_SIZE);
+    statistics.setFillColor(TEXT_COLOR);
+    statistics.setPosition(STATISTICS_X, STATISTICS_Y);
 
-    sf::Text exit("Exit", font, 30);
-    exit.setFillColor(sf::Color::White);
-    exit.setPosition(250, 400);
+    sf::Text exit("Exit", font, OPTION_FONT_SIZE);
+    exit.setFillColor(TEXT_COLOR);
+    exit.setPosition(EXIT_X, EXIT_Y);
 
     while (window.isOpen()) {
         sf::Event event;

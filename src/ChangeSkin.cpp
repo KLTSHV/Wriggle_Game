@@ -1,6 +1,16 @@
 #include "../include/ChangeSkin.h"
 #include <iostream>
 
+// Constants
+const std::string FONT_PATH = "../assets/arial.ttf";
+const unsigned int TITLE_FONT_SIZE = 40;
+const unsigned int BACK_BUTTON_FONT_SIZE = 30;
+const sf::Color TITLE_COLOR = sf::Color::White;
+const sf::Color BACK_BUTTON_COLOR = sf::Color::White;
+const sf::Vector2f TITLE_POSITION = {200, 50};
+const sf::Vector2f BACK_BUTTON_POSITION = {50, 500};
+const std::vector<std::string> SKIN_PATHS = {"../assets/powerup.png", "../assets/player.png"};
+
 bool ChangeSkin::show(sf::RenderWindow& window) {
     if (!loadResources()) {  // Ensure resources are loaded successfully
         std::cerr << "Failed to load resources for ChangeSkin!" << std::endl;
@@ -8,18 +18,18 @@ bool ChangeSkin::show(sf::RenderWindow& window) {
     }
 
     sf::Font font;
-    if (!font.loadFromFile("../assets/arial.ttf")) {
-        std::cerr << "Error loading font from assets/arial.ttf" << std::endl;
+    if (!font.loadFromFile(FONT_PATH)) {
+        std::cerr << "Error loading font from " << FONT_PATH << std::endl;
         return false;
     }
 
-    sf::Text title("Change Skin", font, 40);
-    title.setFillColor(sf::Color::White);
-    title.setPosition(200, 50);
+    sf::Text title("Change Skin", font, TITLE_FONT_SIZE);
+    title.setFillColor(TITLE_COLOR);
+    title.setPosition(TITLE_POSITION);
 
-    sf::Text backButton("Back", font, 30);
-    backButton.setFillColor(sf::Color::White);
-    backButton.setPosition(50, 500);
+    sf::Text backButton("Back", font, BACK_BUTTON_FONT_SIZE);
+    backButton.setFillColor(BACK_BUTTON_COLOR);
+    backButton.setPosition(BACK_BUTTON_POSITION);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -52,8 +62,7 @@ bool ChangeSkin::loadResources() {
 }
 
 bool ChangeSkin::loadSkins() {
-    // Example of predefined skin paths
-    skinPaths = {"../assets/powerup.png", "../assets/player.png"};
+    skinPaths = SKIN_PATHS;
     if (skinPaths.empty()) {
         std::cerr << "No skins found to load!" << std::endl;
         return false;
