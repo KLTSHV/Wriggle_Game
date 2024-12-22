@@ -1,6 +1,6 @@
 CMakeFiles/Wriggle.dir/src/Game.cpp.o: \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/src/Game.cpp \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Game.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Graphics.hpp \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Window.hpp \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/System.hpp \
@@ -1073,11 +1073,11 @@ CMakeFiles/Wriggle.dir/src/Game.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/path_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/u8path.h \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Snake.h \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Wall.h \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Player.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Snake.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Wall.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Menu.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/PowerUp.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/random \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__random/bernoulli_distribution.h \
