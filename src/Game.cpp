@@ -5,33 +5,7 @@
 #include <fstream>
 #include "../include/PowerUp.h"  
 #include "../include/Player.h"
-
-
-constexpr int WINDOW_WIDTH = 800;
-constexpr int WINDOW_HEIGHT = 600;
-constexpr int FONT_SIZE = 24;
-constexpr int PLAYER_POSITION_X = 400;
-constexpr int PLAYER_POSITION_Y = 300;
-constexpr int TIMERTEXT_POSITION_X = 10;
-constexpr int TIMERTEXT_POSITION_Y = 10;
-constexpr int PROGRESSBAR_POSITION_X = 10;
-constexpr int PROGRESSBAR_POSITION_Y = 50;
-constexpr float PROGRESS_BAR_WIDTH = 200.f;
-constexpr float PROGRESS_BAR_HEIGHT = 15.f;
-constexpr float PROGRESS_BAR_OUTLINE_THICKNESS = 2.f;
-constexpr float PROGRESS_INCREMENT = PROGRESS_BAR_WIDTH / 30.f;
-constexpr float SNAKE_SPAWN_DURATION_INITIAL = 3.0f;
-constexpr float POWER_UP_SPAWN_DURATION_INITIAL = 9.0f;
-constexpr float DIAGONAL_SPEED_FACTOR = 1.0f / 1.414213562f;
-constexpr float WALL_MIN_LENGTH = 100.0f;
-constexpr float WALL_MAX_LENGTH = 300.0f;
-constexpr float WALL_MIN_OFFSET = 50.0f;
-constexpr int DIFFICULTY_LEVEL_UP_INTERVAL = 30;
-constexpr int MAX_DIFFICULTY_LEVEL = 5;
-constexpr float SNAKE_SPEED_MIN = 0.05f;
-constexpr float SNAKE_SPEED_MAX = 0.5f;
-constexpr float SNAKE_SEGMENT_SIZE_MIN = 8.0f;
-constexpr float SNAKE_SEGMENT_SIZE_MAX = 20.0f;
+#include "../include/Constants.h"
 
 Game::Game() 
     : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Arcade Game"), 

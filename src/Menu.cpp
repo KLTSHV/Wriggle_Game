@@ -3,21 +3,7 @@
 #include "../include/ChangeSkin.h"
 #include "../include/Statistics.h"
 #include "../include/Game.h"
-
-// Константы
-constexpr int TITLE_FONT_SIZE = 50;
-constexpr int OPTION_FONT_SIZE = 30;
- sf::Color TEXT_COLOR = sf::Color::White;
-constexpr float TITLE_X = 250.0f;
-constexpr float TITLE_Y = 100.0f;
-constexpr float START_X = 250.0f;
-constexpr float START_Y = 250.0f;
-constexpr float CHANGE_SKIN_X = 250.0f;
-constexpr float CHANGE_SKIN_Y = 300.0f;
-constexpr float STATISTICS_X = 250.0f;
-constexpr float STATISTICS_Y = 350.0f;
-constexpr float EXIT_X = 250.0f;
-constexpr float EXIT_Y = 400.0f;
+#include "../include/Constants.h"
 
 bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
     sf::Font font;

@@ -1,15 +1,6 @@
 #include "../include/ChangeSkin.h"
 #include <iostream>
-
-// Constants
-const std::string FONT_PATH = "../assets/arial.ttf";
-const unsigned int TITLE_FONT_SIZE = 40;
-const unsigned int BACK_BUTTON_FONT_SIZE = 30;
-const sf::Color TITLE_COLOR = sf::Color::White;
-const sf::Color BACK_BUTTON_COLOR = sf::Color::White;
-const sf::Vector2f TITLE_POSITION = {200, 50};
-const sf::Vector2f BACK_BUTTON_POSITION = {50, 500};
-const std::vector<std::string> SKIN_PATHS = {"../assets/powerup.png", "../assets/player.png"};
+#include "../include/Constants.h"
 
 bool ChangeSkin::show(sf::RenderWindow& window) {
     if (!loadResources()) {  // Ensure resources are loaded successfully
@@ -23,13 +14,13 @@ bool ChangeSkin::show(sf::RenderWindow& window) {
         return false;
     }
 
-    sf::Text title("Change Skin", font, TITLE_FONT_SIZE);
-    title.setFillColor(TITLE_COLOR);
-    title.setPosition(TITLE_POSITION);
+    sf::Text title("Change Skin", font, CHANGESKIN_TITLE_FONT_SIZE);
+    title.setFillColor(CHANGESKIN_TITLE_COLOR);
+    title.setPosition(CHANGESKIN_TITLE_POSITION);
 
-    sf::Text backButton("Back", font, BACK_BUTTON_FONT_SIZE);
-    backButton.setFillColor(BACK_BUTTON_COLOR);
-    backButton.setPosition(BACK_BUTTON_POSITION);
+    sf::Text backButton("Back", font, CHANGESKIN_BACK_BUTTON_FONT_SIZE);
+    backButton.setFillColor(CHANGESKIN_BACK_BUTTON_COLOR);
+    backButton.setPosition(CHANGESKIN_BACK_BUTTON_POSITION);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -62,7 +53,7 @@ bool ChangeSkin::loadResources() {
 }
 
 bool ChangeSkin::loadSkins() {
-    skinPaths = SKIN_PATHS;
+    skinPaths = CHANGESKIN_SKIN_PATHS;
     if (skinPaths.empty()) {
         std::cerr << "No skins found to load!" << std::endl;
         return false;

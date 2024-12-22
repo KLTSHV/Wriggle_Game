@@ -2,23 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
-// Constants
-const std::string FONT_PATH = "../assets/arial.ttf";
-const std::string STATISTICS_FILE_PATH = "statistics.txt";
-const int TITLE_FONT_SIZE = 40;
-const int BUTTON_FONT_SIZE = 30;
-const int STAT_TEXT_FONT_SIZE = 30;
-const sf::Color TEXT_COLOR = sf::Color::White;
-const sf::Vector2f TITLE_POSITION(200, 50);
-const sf::Vector2f BACK_BUTTON_POSITION(50, 500);
-const sf::Vector2f STAT_TEXT_POSITION(200, 150);
-const int STAT_TEXT_Y_INCREMENT = 50;
-
-// Default values for statistics
-const int DEFAULT_HIGH_SCORE = 1234;
-const int DEFAULT_GAMES_PLAYED = 56;
-const int DEFAULT_TOTAL_TIME = 12345;
+#include "../include/Constants.h"
 
 bool Statistics::show(sf::RenderWindow& window) {
     if (!loadResources()) {  // Ensure statistics are loaded successfully
@@ -32,19 +16,19 @@ bool Statistics::show(sf::RenderWindow& window) {
         return false;
     }
 
-    sf::Text title("Statistics", font, TITLE_FONT_SIZE);
-    title.setFillColor(TEXT_COLOR);
-    title.setPosition(TITLE_POSITION);
+    sf::Text title("Statistics", font, STAT_TITLE_FONT_SIZE);
+    title.setFillColor(STAT_TEXT_COLOR);
+    title.setPosition(STAT_TITLE_POSITION);
 
-    sf::Text backButton("Back", font, BUTTON_FONT_SIZE);
-    backButton.setFillColor(TEXT_COLOR);
-    backButton.setPosition(BACK_BUTTON_POSITION);
+    sf::Text backButton("Back", font, STAT_BUTTON_FONT_SIZE);
+    backButton.setFillColor(STAT_TEXT_COLOR);
+    backButton.setPosition(STAT_BACK_BUTTON_POSITION);
 
     std::vector<sf::Text> statsTexts;
     int yPosition = STAT_TEXT_POSITION.y;
     for (const auto& stat : stats) {
         sf::Text statText(stat.first + ": " + std::to_string(stat.second), font, STAT_TEXT_FONT_SIZE);
-        statText.setFillColor(TEXT_COLOR);
+        statText.setFillColor(STAT_TEXT_COLOR);
         statText.setPosition(STAT_TEXT_POSITION.x, yPosition);
         yPosition += STAT_TEXT_Y_INCREMENT;
         statsTexts.push_back(statText);
@@ -86,7 +70,7 @@ bool Statistics::loadResources() {
 }
 
 bool Statistics::loadStatistics() {
-    std::ifstream file(STATISTICS_FILE_PATH);
+    std::ifstream file(STAT_FILE_PATH);
 
     if (!file.is_open()) {
         // If file doesn't exist, initialize with default values
@@ -111,7 +95,7 @@ bool Statistics::loadStatistics() {
 }
 
 bool Statistics::saveStatistics() {
-    std::ofstream file(STATISTICS_FILE_PATH);
+    std::ofstream file(STAT_FILE_PATH);
 
     if (!file.is_open()) {
         std::cerr << "Failed to open statistics file for saving!" << std::endl;

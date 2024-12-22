@@ -1080,4 +1080,5 @@ CMakeFiles/Wriggle.dir/src/Menu.cpp.o: \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Player.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Snake.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Wall.h \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/PowerUp.h
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/PowerUp.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Constants.h

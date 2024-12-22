@@ -1037,7 +1037,8 @@ CMakeFiles/Wriggle.dir/src/ChangeSkin.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wr
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h
 
 CMakeFiles/Wriggle.dir/src/Game.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/src/Game.cpp \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/Availability.h \
@@ -2161,6 +2162,7 @@ CMakeFiles/Wriggle.dir/src/Game.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \
@@ -3243,6 +3245,7 @@ CMakeFiles/Wriggle.dir/src/Menu.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \
@@ -4287,6 +4290,7 @@ CMakeFiles/Wriggle.dir/src/Player.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggl
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Wall.h
 
@@ -5057,6 +5061,8 @@ CMakeFiles/Wriggle.dir/src/PowerUp.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wrigg
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/initializer_list \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/ios \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iosfwd \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/istream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iterator \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/limits \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/locale \
@@ -5324,6 +5330,7 @@ CMakeFiles/Wriggle.dir/src/PowerUp.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wrigg
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h
 
 CMakeFiles/Wriggle.dir/src/Snake.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/src/Snake.cpp \
@@ -6093,6 +6100,8 @@ CMakeFiles/Wriggle.dir/src/Snake.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/initializer_list \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/ios \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iosfwd \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/istream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iterator \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/limits \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/locale \
@@ -6360,6 +6369,7 @@ CMakeFiles/Wriggle.dir/src/Snake.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Snake.h
 
 CMakeFiles/Wriggle.dir/src/Statistics.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/src/Statistics.cpp \
@@ -7419,6 +7429,7 @@ CMakeFiles/Wriggle.dir/src/Statistics.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wr
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Statistics.h
 
 CMakeFiles/Wriggle.dir/src/Wall.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/src/Wall.cpp \
@@ -9653,6 +9664,8 @@ _deps/sfml-src/include/SFML/Audio/SoundFileFactory.hpp:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/directory_iterator.h:
 
 /Users/egorkoltysev/Desktop/PROG/Wriggle/src/Game.cpp:
+
+/Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h:
 
 /Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h:
 

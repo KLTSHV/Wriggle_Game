@@ -1,11 +1,7 @@
 #include "../include/Snake.h"
 #include <cmath>
 #include <memory>
-
-// Constants
-const float PI = 3.14159f;
-const float DEFAULT_SIZE_OF_SEGMENTS = 10.0f;
-const float DEFAULT_STOP_TIMER = 6.0f;
+#include "../include/Constants.h"
 
 Snake::Snake() 
     : speed(0), 

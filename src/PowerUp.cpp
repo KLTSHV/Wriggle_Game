@@ -1,9 +1,5 @@
 #include "../include/PowerUp.h"
-
-// Constants
-const std::string POWERUP_TEXTURE_PATH = "assets/powerup.png";
-const float SCALE_X = 0.01f;
-const float SCALE_Y = 0.01f;
+#include "../include/Constants.h"
 
 PowerUp::PowerUp() {
     texture.loadFromFile(POWERUP_TEXTURE_PATH);

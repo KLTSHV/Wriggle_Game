@@ -1,19 +1,7 @@
 #include "../include/Player.h"
 #include "../include/Wall.h" 
 #include <iostream>
-
-// Константы
-constexpr float INITIAL_SPEED = 8.0f;
-constexpr float DASH_DISTANCE = 100.0f; // Предполагаемое расстояние рывка
-constexpr float SPEED_UP_SPEED = 15.0f;
-constexpr float SPEED_UP_DURATION = 7.0f;
-constexpr float INVINCIBILITY_DURATION = 5.0f;
-constexpr float SHRINK_SCALE_X = 0.01f;
-constexpr float SHRINK_SCALE_Y = 0.01f;
-constexpr float SHRINK_DURATION = 7.0f;
-constexpr float NORMAL_SCALE_X = 0.02f;
-constexpr float NORMAL_SCALE_Y = 0.02f;
-constexpr float DASH_COOLDOWN = 6.0f;
+#include "../include/Constants.h"
 
 Player::Player() : 
     speed(INITIAL_SPEED), 
