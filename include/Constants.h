@@ -42,8 +42,8 @@ constexpr float WALL_MAX_LENGTH = 300.0f;
 constexpr float WALL_MIN_OFFSET = 50.0f;
 constexpr int DIFFICULTY_LEVEL_UP_INTERVAL = 30;
 constexpr int MAX_DIFFICULTY_LEVEL = 5;
-constexpr float SNAKE_SPEED_MIN = 0.05f;
-constexpr float SNAKE_SPEED_MAX = 0.5f;
+constexpr float SNAKE_SPEED_MIN = 50.0f;
+constexpr float SNAKE_SPEED_MAX = 70.0f;
 constexpr float SNAKE_SEGMENT_SIZE_MIN = 8.0f;
 constexpr float SNAKE_SEGMENT_SIZE_MAX = 20.0f;
 
@@ -63,20 +63,20 @@ constexpr float EXIT_X = 250.0f;
 constexpr float EXIT_Y = 400.0f;
 
 // Константы Player
-constexpr float INITIAL_SPEED = 8.0f;
-constexpr float DASH_DISTANCE = 10.0f; 
-constexpr float SPEED_UP_SPEED = 15.0f;
-constexpr float SPEED_UP_DURATION = 7.0f;
+constexpr float INITIAL_SPEED = 90.0f;
+constexpr float DASH_DISTANCE = 60.0f; 
+constexpr float SPEED_UP_SPEED = 160.0f;
+constexpr float SPEED_UP_DURATION = 8.0f;
 constexpr float INVINCIBILITY_DURATION = 5.0f;
 constexpr float SHRINK_SCALE_X = 0.01f;
 constexpr float SHRINK_SCALE_Y = 0.01f;
 constexpr float SHRINK_DURATION = 7.0f;
 constexpr float NORMAL_SCALE_X = 0.02f;
 constexpr float NORMAL_SCALE_Y = 0.02f;
-constexpr float DASH_COOLDOWN = 6.0f;
+constexpr float DASH_COOLDOWN = 5.0f;
 
 // Константы PowerUp
-const std::string POWERUP_TEXTURE_PATH = "assets/powerup.png";
+const std::string POWERUP_TEXTURE_PATH = "../assets/powerup.png";
 const float SCALE_X = 0.01f;
 const float SCALE_Y = 0.01f;
 
@@ -84,6 +84,8 @@ const float SCALE_Y = 0.01f;
 const float PI = 3.14159f;
 const float DEFAULT_SIZE_OF_SEGMENTS = 10.0f;
 const float DEFAULT_STOP_TIMER = 6.0f;
+const float SNAKE_FADE_RATE = 100.f;
+
 
 // Константы Statistics
 const std::string STAT_FILE_PATH = "statistics.txt";

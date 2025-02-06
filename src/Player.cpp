@@ -1,5 +1,6 @@
+// Player.cpp
 #include "../include/Player.h"
-#include "../include/Wall.h" 
+#include "../include/Wall.h"
 #include <iostream>
 #include "../include/Constants.h"
 
@@ -8,61 +9,88 @@ Player::Player() :
     invincible(false), 
     invincibilityTimer(0), 
     speededUp(false), 
-    speededUpTimer(0) {
+    speededUpTimer(0),
+    canDash(true), 
+    dashDistance(DASH_DISTANCE),
+    dashTimer(0) {
     texture.loadFromFile("../assets/player.png");
-    std::cout << "Error here pa" << std::endl;
     sprite.setTexture(texture);
-    std::cout << "Error here pb" << std::endl;
     sprite.setScale(NORMAL_SCALE_X, NORMAL_SCALE_Y);
 }
 
 void Player::setPosition(float x, float y) {
-    std::cout << "Error here sp1" << std::endl;
     sprite.setPosition(x, y);
-    std::cout << "Error here sp2" << std::endl;
 }
 
 float Player::returnSpeed() {
     return this->speed;
 }
 
-void Player::move(sf::RenderWindow& window, float dx, float dy, const std::vector<std::unique_ptr<Wall>>& walls) {
-    sf::Vector2f newPosition = sprite.getPosition() + sf::Vector2f(dx, dy);
-    sf::FloatRect newBounds = sprite.getGlobalBounds();
-    newBounds.left += dx;
-    newBounds.top += dy;
+void Player::move(float dx, float dy, const std::vector<std::unique_ptr<Wall>>& walls, float deltaTime) {
+    // Получаем исходное положение
+    sf::Vector2f originalPos = sprite.getPosition();
+    sf::Vector2f newPos = originalPos;
 
+    // Пытаемся переместиться по горизонтали
+    newPos.x += dx * deltaTime;
+    sf::FloatRect newBounds = sprite.getGlobalBounds();
+    newBounds.left = newPos.x;  // обновляем только горизонтальную позицию
+    bool collisionX = false;
     for (const auto& wall : walls) {
         if (newBounds.intersects(wall->getGlobalBounds())) {
-            // Если пересечение есть, блокируем движение
-            return;
+            collisionX = true;
+            break;
         }
     }
-
-    sprite.move(dx, dy);
-
-    // Обработка границ карты
-    sf::Vector2f position = sprite.getPosition();
-    if (position.x < 0) position.x = window.getSize().x;
-    else if (position.x > window.getSize().x) position.x = 0;
-
-    if (position.y < 0) position.y = window.getSize().y;
-    else if (position.y > window.getSize().y) position.y = 0;
-
-    sprite.setPosition(position);
-}
-
-void Player::attemptDash(sf::Vector2f direction) {
-    if (canDash) {
-        sprite.move(direction * DASH_DISTANCE);
-        canDash = false;
-        dashTimer = 0.0f;
+    if (!collisionX) {
+        originalPos.x = newPos.x;  // если столкновения нет, применяем изменение по X
     }
+
+    // Пытаемся переместиться по вертикали
+    newPos = originalPos;
+    newPos.y += dy * deltaTime;
+    newBounds = sprite.getGlobalBounds();
+    newBounds.top = newPos.y;  // обновляем только вертикальную позицию
+    bool collisionY = false;
+    for (const auto& wall : walls) {
+        if (newBounds.intersects(wall->getGlobalBounds())) {
+            collisionY = true;
+            break;
+        }
+    }
+    if (!collisionY) {
+        originalPos.y = newPos.y;  // если столкновения нет, применяем изменение по Y
+    }
+
+    // Обновляем позицию спрайта
+    sprite.setPosition(originalPos);
+
+    // Реализация телепортации (wrap-around) с учетом размеров спрайта
+    sf::FloatRect spriteBounds = sprite.getGlobalBounds();
+    sf::Vector2f pos = sprite.getPosition();
+
+    // Горизонтальный wrap-around:
+    if (pos.x + spriteBounds.width < 0) {  
+        pos.x = WINDOW_WIDTH;
+    } else if (pos.x > WINDOW_WIDTH) {
+        pos.x = -spriteBounds.width;
+    }
+
+    // Вертикальный wrap-around:
+    if (pos.y + spriteBounds.height < 0) {  
+        pos.y = WINDOW_HEIGHT;
+    } else if (pos.y > WINDOW_HEIGHT) {
+        pos.y = -spriteBounds.height;
+    }
+
+    sprite.setPosition(pos);
 }
+
 
 void Player::resetDash() {
     if (dashTimer >= DASH_COOLDOWN) {
         canDash = true;
+        dashTimer = 0; // Reset timer after dash is available again
     }
 }
 
@@ -96,6 +124,8 @@ void Player::reset() {
     invincibilityTimer = 0;
     speededUp = false;
     speededUpTimer = 0;
+    canDash = true;
+    dashTimer = 0;
 }
 
 void Player::updateTimers(float elapsedSeconds) {
@@ -111,9 +141,7 @@ void Player::updateTimers(float elapsedSeconds) {
         speededUp = false;
         speed = INITIAL_SPEED;
     }
-    if (dashTimer >= DASH_COOLDOWN) {
-        resetDash();
-    }
+    resetDash();
     if (shrinkedTimer <= 0) {
         shrinked = false;
         this->setScale(NORMAL_SCALE_X, NORMAL_SCALE_Y);
@@ -132,6 +160,62 @@ void Player::setScale(float x, float y) {
     this->sprite.setScale(x, y);
 }
 
-void Player::dash(float dx, float dy) {
-    sprite.move(dx, dy);
+void Player::dash(int direction, const std::vector<std::unique_ptr<Wall>>& walls) {
+    if (!canDash)
+        return;
+    
+    // Определяем вектор дэша в зависимости от направления
+    float dx = 0, dy = 0;
+    switch (direction) {
+        case 0: dy = -dashDistance; break;              // Up
+        case 1: dx = dashDistance; dy = -dashDistance; break; // Up-Right
+        case 2: dx = dashDistance; break;                // Right
+        case 3: dx = dashDistance; dy = dashDistance; break;  // Down-Right
+        case 4: dy = dashDistance; break;                // Down
+        case 5: dx = -dashDistance; dy = dashDistance; break; // Down-Left
+        case 6: dx = -dashDistance; break;               // Left
+        case 7: dx = -dashDistance; dy = -dashDistance; break; // Up-Left
+        default: break;
+    }
+    
+    sf::Vector2f dashVector(dx, dy);
+    float magnitude = std::sqrt(dashVector.x * dashVector.x + dashVector.y * dashVector.y);
+    sf::Vector2f unitDash = (magnitude != 0) ? dashVector / magnitude : sf::Vector2f(0, 0);
+    
+    // Определяем шаг, например, 5 пикселей, и число шагов
+    const float DASH_STEP = 5.0f;
+    int steps = static_cast<int>(magnitude / DASH_STEP);
+    
+    // Текущая позиция игрока
+    sf::Vector2f currentPos = sprite.getPosition();
+    sf::Vector2f newPos = currentPos;
+    bool collisionFound = false;
+    
+    // Пройдемся по пути дэша по шагам
+    for (int i = 0; i < steps; ++i) {
+        newPos += unitDash * DASH_STEP;
+        // Вычисляем новые границы игрока (смещение относительно исходного положения)
+        sf::FloatRect newBounds = sprite.getGlobalBounds();
+        newBounds.left += (newPos.x - currentPos.x);
+        newBounds.top  += (newPos.y - currentPos.y);
+        
+        // Проверяем столкновение с каждой стеной
+        for (const auto& wall : walls) {
+            if (newBounds.intersects(wall->getGlobalBounds())) {
+                collisionFound = true;
+                break;
+            }
+        }
+        if (collisionFound)
+            break;
+    }
+    
+    // Если столкновение найдено, возвращаемся на один шаг назад, чтобы не попасть внутрь стены
+    if (collisionFound)
+        newPos -= unitDash * DASH_STEP;
+    
+    // Устанавливаем новую позицию и начинаем кулдаун дэша
+    sprite.setPosition(newPos);
+    canDash = false;
+    dashTimer = 0;
 }

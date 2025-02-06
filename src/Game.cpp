@@ -50,11 +50,14 @@ Game::Game()
     powerUpSpawnDuration = POWER_UP_SPAWN_DURATION_INITIAL;
    }
 void Game::run() {
+    window.setFramerateLimit(60);
     while (window.isOpen()) {
-        std::cout << elapsedGameTime << std::endl;
+        
+        
+        
 
         if (isGameRunning && startTheGame) {
-            std::cout << "DoUpdates" << std::endl;
+            
             update();
             render();
             processEvents();
@@ -62,135 +65,119 @@ void Game::run() {
         
     }
 }
+
 void Game::processEvents() {
     sf::Event event;
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
-        if (isGameRunning && startTheGame) {
-            if (event.type == sf::Event::KeyPressed) {
-                float speed = player->returnSpeed();
-                float diagonalFactor = DIAGONAL_SPEED_FACTOR; // Нормализация диагональной скорости
-                sf::Vector2f moveOffset(0.f, 0.f);
-                if (event.key.code == sf::Keyboard::W) {
-                    moveOffset.y = -speed;
-                } if (event.key.code == sf::Keyboard::S) {
-                    moveOffset.y = speed;
-                } if (event.key.code == sf::Keyboard::A) {
-                    moveOffset.x = -speed;
-                } if (event.key.code == sf::Keyboard::D) {
-                    moveOffset.x = speed;
-                }
-                // Проверка для диагонального движения
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                    moveOffset.x = speed * diagonalFactor;
-                    moveOffset.y = -speed * diagonalFactor;
-                } if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                    moveOffset.x = -speed * diagonalFactor;
-                    moveOffset.y = -speed * diagonalFactor;
-                }if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                    moveOffset.x = speed * diagonalFactor;
-                    moveOffset.y = speed * diagonalFactor;
-                }if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                    moveOffset.x = -speed * diagonalFactor;
-                    moveOffset.y = speed * diagonalFactor;
-                }
-                // Проверка на столкновение перед движением
-                sf::Vector2f newPosition = player->sprite.getPosition() + moveOffset;
-                sf::FloatRect newBounds = player->getGlobalBounds();                
-                newBounds.left += moveOffset.x;
-                newBounds.top += moveOffset.y;
+        // Обработка дэша при нажатии LShift
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::LShift) {
+            int dashDirection = -1;
+            bool up    = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+            bool down  = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+            bool left  = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+            bool right = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
             
-                bool collision = false;
-                for (const auto& wall : walls) {
-                    if (newBounds.intersects(wall->getGlobalBounds())) {
-                        collision = true;
-                        break;
-                    }
-                }
-
-                // Если нет столкновений, игрок двигается
-                if (!collision) {
-                    player->move(window, moveOffset.x, moveOffset.y, walls);
-                }
-            }
-        } 
+            if (up && !down && !left && !right)
+                dashDirection = 0; // Up
+            else if (up && right)
+                dashDirection = 1; // Up-Right
+            else if (right && !up && !down)
+                dashDirection = 2; // Right
+            else if (down && right)
+                dashDirection = 3; // Down-Right
+            else if (down && !up && !left && !right)
+                dashDirection = 4; // Down
+            else if (down && left)
+                dashDirection = 5; // Down-Left
+            else if (left && !up && !down)
+                dashDirection = 6; // Left
+            else if (up && left)
+                dashDirection = 7; // Up-Left
+            
+            if (dashDirection == -1)
+                dashDirection = 0; // Значение по умолчанию (Up)
+            
+            // Передаём также walls для проверки столкновений
+            player->dash(dashDirection, walls);
+        }
     }
 }
 
 
 
+
 void Game::update() {
-    float elapsedTime = gameClock.restart().asSeconds();
-    
-    dashTimer += elapsedTime;
-    snakeSpawnTimer += elapsedTime;
-    powerUpSpawnTimer += elapsedTime;
-    difficultyLevelTimer += elapsedTime;
-    player->updateTimers(elapsedTime);
-    if(!erasingSnakesProcess && !snakes.empty()){
-        for(const auto& snake : snakes){
-            if(snake){
-            snake->updateTimers(elapsedTime);
-            isSnakesStopped = snake->isSnakeStopped();
+    // Получаем время между кадрами (delta time)
+    float deltaTime = gameClock.restart().asSeconds();
+
+    // Обновление таймеров и прочего
+    dashTimer += deltaTime;
+    snakeSpawnTimer += deltaTime;
+    powerUpSpawnTimer += deltaTime;
+    difficultyLevelTimer += deltaTime;
+    player->updateTimers(deltaTime);
+    if (!erasingSnakesProcess && !snakes.empty()){
+        for (const auto& snake : snakes){
+            if (snake) {
+                snake->update(deltaTime);
+                isSnakesStopped = snake->isStopped();
             }
         }
     }
-    elapsedGameTime += elapsedTime;
-    std::cout << "Update Timer" << std::endl;
+    elapsedGameTime += deltaTime;
     timerText.setString("Time: " + std::to_string(static_cast<int>(elapsedGameTime)) + "s");
 
-    // Обновление прогресса
-    progressBarFill += elapsedTime * (PROGRESS_INCREMENT);
+    // Обновление прогресс-бара
+    progressBarFill += deltaTime * PROGRESS_INCREMENT;
     if (progressBarFill >= PROGRESS_BAR_WIDTH) {
-        progressBarFill = 0.f; // Сброс шкалы
+        progressBarFill = 0.f;
     }
     progressBar.setSize(sf::Vector2f(progressBarFill, progressBar.getSize().y));
 
+    // Обработка ввода для движения игрока (см. следующий пункт)
+    handlePlayerMovement(deltaTime);
 
-    // wallSpawnTimer += elapsedTime;
-    // if (wallSpawnTimer >= wallSpawnDuration) {
-    //     spawnWall();
-    //     wallSpawnTimer = 0.0f;
-    // }
-    
-    if(!erasingSnakesProcess){
-    if (snakeSpawnTimer >= snakeSpawnDuration && !isSnakesStopped) {
-        spawnSnake();
-        std::cout << "Snake Spawned!" << std::endl;
-        snakeSpawnTimer = 0;
-        speedOfStoppedSnakes.clear();
-    }}
-    if(!powerUps.empty()){
+    // Остальные обновления (спавн змей, бонусов, столкновения и т.д.)
+    if (!erasingSnakesProcess){
+        if (snakeSpawnTimer >= snakeSpawnDuration && !isSnakesStopped) {
+            spawnSnake();
+            std::cout << "Snake Spawned!" << std::endl;
+            snakeSpawnTimer = 0;
+            speedOfStoppedSnakes.clear();
+        }
+    }
+    if (!powerUps.empty()){
         powerUpSpawnTimer = 0;
     }
     if (powerUpSpawnTimer >= powerUpSpawnDuration) {
-        std::cout << isSnakesStopped << std::endl;
         spawnPowerUp();
         powerUpSpawnTimer = 0;
     }
-    if(!snakes.empty()){
+    if (!snakes.empty()){
         for (auto& snake : snakes) {
-            if(snake){
-            snake->move();
-            }  
+            if (snake){
+                snake->update(deltaTime);
+            }
         }
     }
-    if(difficultyLevelTimer >= DIFFICULTY_LEVEL_UP_INTERVAL){
-        this->adjustDifficultyLevel();
+    if (difficultyLevelTimer >= DIFFICULTY_LEVEL_UP_INTERVAL){
+        adjustDifficultyLevel();
         difficultyLevelTimer = 0;
         walls.clear();
-        int amountOfWall = rand()%5 + 2;
-        for(int i = 0; i < amountOfWall; i++){
+        int amountOfWall = rand() % 5 + 2;
+        for (int i = 0; i < amountOfWall; i++){
             spawnWall();
         }
-
     }
 
     handleCollisions();
     handleWallCollisions();
 }
+
+
 
 void Game::adjustDifficultyLevel(){
     if (difficultyLevel<=5){
@@ -207,21 +194,15 @@ void Game::adjustDifficultyLevel(){
 void Game::render() {
     window.clear();
 
-    // Отрисовка игрока, змей, бонусов и стен
     window.draw(*player);
-
-    for (const auto& snake : snakes) {
+    for (const auto& snake : snakes)
         window.draw(*snake);
-    }
-
-    for (const auto& powerUp : powerUps) {
-        window.draw(*powerUp);
-    }
-
-    // Отрисовка стен
-    for (const auto& wall : walls) {
+    for (const auto& wall : walls)
         window.draw(*wall);
-    }
+    // Рисуем бонусы поверх стен
+    for (const auto& powerUp : powerUps)
+        window.draw(*powerUp);
+
     window.draw(timerText);
     window.draw(progressBar);
     window.draw(progressBarOutline);
@@ -232,7 +213,7 @@ void Game::render() {
 
 void Game::spawnSnake() {
     if(!erasingSnakesProcess){
-    auto newSnake = std::make_unique<Snake>();
+    
 
     int side = rand() % 4;
     float x = 0, y = 0;
@@ -263,19 +244,17 @@ void Game::spawnSnake() {
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> distSpeed(0.05f, 0.5f);
+    std::uniform_real_distribution<float> distSpeed(SNAKE_SPEED_MIN, SNAKE_SPEED_MAX);
     std::uniform_real_distribution<float> distSize(8.0f, 20.0f);
     
     float speed = distSpeed(gen);
-    float size = distSize(gen);
+    float size = distSize(gen); // Размер сегментов
+    int numSegments = (rand()%20)+5;
+    angle = angle * 3.14159f / 180.0f;  // Преобразуем угол в радианы
 
-    newSnake->setPosition(x, y);
-    newSnake->setSpeed(speed);
-    newSnake->setSpeedPrevious(speed);
-    newSnake->setAngle(angle * 3.14159f / 180.0f);  // Преобразуем угол в радианы
-    newSnake->setAmountOfSegments((rand()%20)+5); // Случайное количество сегментов
-    newSnake->setSizeOfSegments(size);             // Размер сегментов
-    newSnake->grow();
+    auto newSnake = std::make_unique<Snake>(speed, angle, numSegments, size);
+    newSnake->setPosition(sf::Vector2f(x, y));
+    std::cout << "Snake Spawned" << std::endl;
     
     
 
@@ -299,24 +278,23 @@ void Game::spawnPowerUp() {
 
 
 void Game::handleCollisions() {
-    if(!snakes.empty()){
-    for (auto it = snakes.begin(); it != snakes.end();) {
-        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) { 
-            std::cout << "Collision detected with snake!" << std::endl;
-
-            if (!player->isInvincible()) {
-                std::cout << "Player is not invincible, resetting game..." << std::endl;
-                resetGame(); //Завершить игру если на игроке нет бафа неуязвимости
+    if (!snakes.empty()) {
+        for (auto it = snakes.begin(); it != snakes.end(); ) {
+            if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) { 
+                std::cout << "Collision detected with snake!" << std::endl;
+                if (!player->isInvincible()) {
+                    std::cout << "Player is not invincible, resetting game..." << std::endl;
+                    resetGame();
+                    return; // Немедленно выходим, чтобы не продолжать итерацию по очищенному контейнеру
+                }
+            } else {
+                ++it;
             }
-
-
-        } else {
-            ++it;
         }
-    }}
+    }
 
-    // Столкновение с бонусами
-    for (auto it = powerUps.begin(); it != powerUps.end();) {
+    // Столкновение с бонусами 
+    for (auto it = powerUps.begin(); it != powerUps.end(); ) {
         if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) {  
             std::cout << "Power-up collected!" << std::endl;
             activatePowerUp(*(*it));  
@@ -328,9 +306,11 @@ void Game::handleCollisions() {
 }
 
 void Game::spawnWall() {
-    auto newWall = std::make_unique<Wall>();
+    const int maxAttempts = 10;
+    int attempt = 0;
+    bool validPosition = false;
+    std::unique_ptr<Wall> newWall = std::make_unique<Wall>();
 
-    // Случайное положение, длина и ориентация
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> distX(50.0f, window.getSize().x - 50.0f);
@@ -338,48 +318,59 @@ void Game::spawnWall() {
     std::uniform_real_distribution<float> distLength(WALL_MIN_LENGTH, WALL_MAX_LENGTH);
     std::uniform_int_distribution<int> orientationDist(0, 1);
 
-    float x = distX(gen);
-    float y = distY(gen);
-    float length = distLength(gen);
-    bool isVertical = orientationDist(gen) == 1;
+    while (attempt < maxAttempts && !validPosition) {
+        float x = distX(gen);
+        float y = distY(gen);
+        float length = distLength(gen);
+        bool isVertical = orientationDist(gen) == 1;
 
-    newWall->setPosition(x, y);
-    newWall->setSize(length, isVertical);
+        newWall->setPosition(x, y);
+        newWall->setSize(length, isVertical);
 
+        // Если стена не пересекается с игроком, позиция допустима:
+        if (!player->getGlobalBounds().intersects(newWall->getGlobalBounds())) {
+            validPosition = true;
+        }
+        attempt++;
+    }
+    // Добавляем стену (если положение не найдено, стена может пересекаться с игроком)
     walls.push_back(std::move(newWall));
 }
 
 void Game::handleWallCollisions() {
     sf::FloatRect playerBounds = player->getGlobalBounds();
-
+    sf::Vector2f pos = player->sprite.getPosition();
+    
     for (const auto& wall : walls) {
         sf::FloatRect wallBounds = wall->getGlobalBounds();
-
-        // Проверяем пересечение игрока со стеной
+        
         if (playerBounds.intersects(wallBounds)) {
-            sf::Vector2f playerPosition = player->sprite.getPosition();
-
-            // Определяем направление, из которого произошёл контакт, и корректируем позицию игрока
-            if (playerBounds.left < wallBounds.left) {
-                playerPosition.x = wallBounds.left - playerBounds.width;
-            } else if (playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width) {
-                playerPosition.x = wallBounds.left + wallBounds.width;
+            // Вычисляем перекрывающийся прямоугольник
+            float intersectLeft   = std::max(playerBounds.left, wallBounds.left);
+            float intersectRight  = std::min(playerBounds.left + playerBounds.width, wallBounds.left + wallBounds.width);
+            float intersectTop    = std::max(playerBounds.top, wallBounds.top);
+            float intersectBottom = std::min(playerBounds.top + playerBounds.height, wallBounds.top + wallBounds.height);
+            
+            float intersectWidth  = intersectRight - intersectLeft;
+            float intersectHeight = intersectBottom - intersectTop;
+            
+            // Разрешаем столкновение по оси с меньшим проникновением
+            if (intersectWidth < intersectHeight) {
+                if (playerBounds.left < wallBounds.left)
+                    pos.x -= intersectWidth;
+                else
+                    pos.x += intersectWidth;
+            } else {
+                if (playerBounds.top < wallBounds.top)
+                    pos.y -= intersectHeight;
+                else
+                    pos.y += intersectHeight;
             }
-
-            if (playerBounds.top < wallBounds.top) {
-                playerPosition.y = wallBounds.top - playerBounds.height;
-            } else if (playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height) {
-                playerPosition.y = wallBounds.top + wallBounds.height;
-            }
-
-            // Устанавливаем скорректированную позицию игрока
-            player->setPosition(playerPosition.x, playerPosition.y);
+            player->setPosition(pos.x, pos.y);
+            playerBounds = player->getGlobalBounds(); // обновляем границы после коррекции
         }
     }
 }
-
-
-
 
 
 
@@ -448,17 +439,63 @@ void Game::saveStatistics(const std::string& fileName) {
         std::cerr << "Unable to open file for writing.\n";
     }
 }
+void Game::handlePlayerMovement(float deltaTime) {
+    float speed = player->returnSpeed(); // Убедитесь, что INITIAL_SPEED имеет разумное значение
+    sf::Vector2f moveOffset(0.f, 0.f);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        moveOffset.y -= speed;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        moveOffset.y += speed;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        moveOffset.x -= speed;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        moveOffset.x += speed;
+    }
+
+    // Если одновременно нажаты две клавиши, нормализуем скорость (например, умножая на коэффициент)
+    if (moveOffset.x != 0.f && moveOffset.y != 0.f) {
+        moveOffset *= DIAGONAL_SPEED_FACTOR;  // Обычно DIAGONAL_SPEED_FACTOR равен 0.7071
+    }
+
+    // Передвигаем игрока с учётом delta time
+    player->move(moveOffset.x, moveOffset.y, walls, deltaTime);
+}
+
+
 
 
 void Game::resetGame() {
     backgroundMusic.stop();
-    // Очистка объектов игры
     snakes.clear();
     powerUps.clear();
+    walls.clear();
     player->reset();
-    isGameRunning = true;
-    this->saveStatistics("statistics.txt");
-    menu -> showWelcomeScreen(window, *this);
+    isGameRunning = false; // Останавливаем игровой процесс перед перезапуском
 
+    // Сброс прогресс-бара
+    progressBarFill = 0.0f;
+    progressBar.setSize(sf::Vector2f(PROGRESS_BAR_WIDTH, progressBar.getSize().y));
+
+    this->saveStatistics("statistics.txt");
+    
+    // Показываем главное меню и ждём выбора пользователя
+    bool newGame = menu->showWelcomeScreen(window, *this);
+    if (newGame) {
+         // Сброс игровых переменных
+         snakeSpawnTimer = 0;
+         powerUpSpawnTimer = 0;
+         difficultyLevelTimer = 0;
+         elapsedGameTime = 0;
+         gameClock.restart();
+         isGameRunning = true;
+         backgroundMusic.play();
+    } else {
+         window.close();
+    }
+    
     std::cout << "Game Over" << std::endl;
 }

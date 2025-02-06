@@ -12,12 +12,12 @@ class Player : public sf::Drawable {
 public:
     Player();
 
-    void attemptDash(sf::Vector2f direction);
+
     void resetDash();
 
     void setPosition(float x, float y);
-    void move(sf::RenderWindow& window, float dx, float dy, const std::vector<std::unique_ptr<Wall> >& walls);
-    void dash(float dx, float dy);
+    void move(float dx, float dy, const std::vector<std::unique_ptr<Wall>>& walls, float deltaTime);
+    void dash(int direction, const std::vector<std::unique_ptr<Wall>>& walls);
     void updateTimers(float elapsedSeconds);
     bool isInvincible() const;
     bool isSpeededUp() const;
@@ -46,6 +46,7 @@ private:
     bool shrinked;
     float shrinkedTimer;
     float speed = 8.0f;
+    int direction;
 };
 
 #endif // PLAYER_H

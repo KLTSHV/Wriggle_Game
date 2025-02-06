@@ -2,8 +2,7 @@
 
 int main() {
     Game game;
-    if(game.startTheGame){
-    game.gameClock.restart();
+    if(game.startTheGame){ 
     game.run();
     return 0;}
 }

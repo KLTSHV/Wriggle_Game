@@ -2163,6 +2163,7 @@ CMakeFiles/Wriggle.dir/src/Game.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \
@@ -3244,6 +3245,7 @@ CMakeFiles/Wriggle.dir/src/Menu.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/ChangeSkin.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h \
@@ -9255,6 +9257,7 @@ CMakeFiles/Wriggle.dir/src/main.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iomanip \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/ios \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iosfwd \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/istream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iterator \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/limits \
@@ -9541,6 +9544,7 @@ CMakeFiles/Wriggle.dir/src/main.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wriggle/
   _deps/sfml-src/include/SFML/Window/WindowBase.hpp \
   _deps/sfml-src/include/SFML/Window/WindowHandle.hpp \
   _deps/sfml-src/include/SFML/Window/WindowStyle.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Constants.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Game.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \

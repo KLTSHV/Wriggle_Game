@@ -1075,6 +1075,8 @@ CMakeFiles/Wriggle.dir/src/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Player.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Snake.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/include/../include/Constants.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Wall.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/Menu.h \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/include/PowerUp.h

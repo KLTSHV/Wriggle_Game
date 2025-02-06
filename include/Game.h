@@ -45,7 +45,7 @@ private:
     void spawnPowerUp();
     void handleCollisions();
     void activatePowerUp(PowerUp& powerUp);
-    void handlePlayerMovement();
+    void handlePlayerMovement(float deltaTime);
     void adjustDifficultyLevel();
     void spawnWall();
     void handleWallCollisions();

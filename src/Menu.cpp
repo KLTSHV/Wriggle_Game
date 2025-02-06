@@ -45,6 +45,7 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
 
                 if (start.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
                     game.setGameRunning(true);
+                    game.gameClock.restart();
                     return true;
                 }
                 if (changeSkin.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
