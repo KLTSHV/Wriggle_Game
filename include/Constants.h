@@ -10,6 +10,13 @@
 #include <SFML/Graphics.hpp>
 
 const std::string FONT_PATH = "../assets/arial.ttf";
+const std::string POWERUP_STOP_SNAKES_LABEL = "../assets/stop_snakes_label.png";
+const std::string POWERUP_SPEED_UP_LABEL = "../assets/speed_up_label.png";
+const std::string POWERUP_SHRINK_LABEL = "../assets/shrink_label.png";
+const std::string POWERUP_ERASE_LABEL = "../assets/erase_label.png";
+const std::string POWERUP_INVINCIBILITY_LABEL = "../assets/invincibility_label.png";
+
+
 
 // Константы ChangeSkin
 const unsigned int CHANGESKIN_TITLE_FONT_SIZE = 40;
@@ -18,7 +25,8 @@ const sf::Color CHANGESKIN_TITLE_COLOR = sf::Color::White;
 const sf::Color CHANGESKIN_BACK_BUTTON_COLOR = sf::Color::White;
 const sf::Vector2f CHANGESKIN_TITLE_POSITION = {200, 50};
 const sf::Vector2f CHANGESKIN_BACK_BUTTON_POSITION = {50, 500};
-const std::vector<std::string> CHANGESKIN_SKIN_PATHS = {"../assets/powerup.png", "../assets/player.png"};
+const std::vector<std::string> CHANGESKIN_SKIN_PATHS = {"../assets/powerup.png", "../assets/player.jpeg"};
+
 
 // Константы Game
 constexpr int WINDOW_WIDTH = 800;
@@ -34,6 +42,21 @@ constexpr float PROGRESS_BAR_WIDTH = 200.f;
 constexpr float PROGRESS_BAR_HEIGHT = 15.f;
 constexpr float PROGRESS_BAR_OUTLINE_THICKNESS = 2.f;
 constexpr float PROGRESS_INCREMENT = PROGRESS_BAR_WIDTH / 30.f;
+
+constexpr float POWERUP_BAR_WIDTH = 200.f;
+constexpr float POWERUP_BAR_HEIGHT = 15.f;
+constexpr int POWERUP_BAR_POSITION_X = 10;
+constexpr int POWERUP_BAR_POSITION_Y = 50;
+constexpr float POWER_PROGRESS_BAR_OUTLINE_THICKNESS = 2.f;
+// Отступ от правого верхнего угла (например, 210 пикселей по X, 10 — по Y)
+constexpr float POWERUP_BAR_OFFSET_X = 210.f;  
+constexpr float POWERUP_BAR_OFFSET_Y = 10.f;   
+
+// Цвет (оранжевый) и толщина обводки
+const sf::Color POWERUP_BAR_FILL_COLOR   = sf::Color(255, 165, 0); 
+const sf::Color POWERUP_BAR_OUTLINE_COLOR = sf::Color::White;
+constexpr float POWERUP_BAR_OUTLINE_THICKNESS = 2.f;
+
 constexpr float SNAKE_SPAWN_DURATION_INITIAL = 3.0f;
 constexpr float POWER_UP_SPAWN_DURATION_INITIAL = 9.0f;
 constexpr float DIAGONAL_SPEED_FACTOR = 1.0f / 1.414213562f;
@@ -46,6 +69,9 @@ constexpr float SNAKE_SPEED_MIN = 50.0f;
 constexpr float SNAKE_SPEED_MAX = 70.0f;
 constexpr float SNAKE_SEGMENT_SIZE_MIN = 8.0f;
 constexpr float SNAKE_SEGMENT_SIZE_MAX = 20.0f;
+constexpr int SNAKE_SEGMENT_AMOUNT_MIN = 5;
+constexpr int SNAKE_SEGMENT_AMOUNT_MAX = 25;
+
 
 // Константы Menu
 constexpr int TITLE_FONT_SIZE = 50;
@@ -63,9 +89,9 @@ constexpr float EXIT_X = 250.0f;
 constexpr float EXIT_Y = 400.0f;
 
 // Константы Player
-constexpr float INITIAL_SPEED = 90.0f;
-constexpr float DASH_DISTANCE = 60.0f; 
-constexpr float SPEED_UP_SPEED = 160.0f;
+constexpr float INITIAL_SPEED = 100.0f;
+constexpr float DASH_DISTANCE = 70.0f; 
+constexpr float SPEED_UP_SPEED = 180.0f;
 constexpr float SPEED_UP_DURATION = 8.0f;
 constexpr float INVINCIBILITY_DURATION = 5.0f;
 constexpr float SHRINK_SCALE_X = 0.01f;

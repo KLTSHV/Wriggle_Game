@@ -13,7 +13,7 @@ Player::Player() :
     canDash(true), 
     dashDistance(DASH_DISTANCE),
     dashTimer(0) {
-    texture.loadFromFile("../assets/player.png");
+    texture.loadFromFile("../assets/skin_1.png");
     sprite.setTexture(texture);
     sprite.setScale(NORMAL_SCALE_X, NORMAL_SCALE_Y);
 }
