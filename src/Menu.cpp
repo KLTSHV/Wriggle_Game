@@ -9,7 +9,7 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
     sf::Font font;
     if (!font.loadFromFile("../assets/arial.ttf")) {
         std::cerr << "Error loading font from assets/arial.ttf" << std::endl;
-        return false; // Exit if font loading fails
+        return false;
     }
 
     sf::Text title("Arcade Game", font, TITLE_FONT_SIZE);
@@ -50,7 +50,7 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
                     return true;
                 }
                 if (changeSkin.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-                    this->handleChangeSkin(window);
+                    this->handleChangeSkin(window, game);
                 }
                 if (statistics.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
                     this->handleStatistics(window);
@@ -72,15 +72,15 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
     return false;
 }
 
-void Menu::handleChangeSkin(sf::RenderWindow& window) {
+void Menu::handleChangeSkin(sf::RenderWindow &window, Game& game) {
     ChangeSkin changeSkin;
     if (!changeSkin.loadSkins()) {
         std::cerr << "Error loading skin resources" << std::endl;
         return;
     }
     changeSkin.show(window);
+    game.setSelectedSkin(changeSkin.getSelectedSkin());
 }
-
 void Menu::handleStatistics(sf::RenderWindow& window) {
     Statistics statistics;
     if (!statistics.loadStatistics()) {

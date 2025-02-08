@@ -5,7 +5,7 @@
 #include "../include/Constants.h"
 
 bool Statistics::show(sf::RenderWindow& window) {
-    if (!loadResources()) {  // Ensure statistics are loaded successfully
+    if (!loadResources()) { 
         std::cerr << "Failed to load statistics!" << std::endl;
         return false;
     }
@@ -48,7 +48,7 @@ bool Statistics::show(sf::RenderWindow& window) {
                     if (!saveStatistics()) {
                         std::cerr << "Failed to save statistics!" << std::endl;
                     }
-                    return true;  // Return to menu
+                    return true;  // Возврат в меню
                 }
             }
         }
@@ -66,14 +66,14 @@ bool Statistics::show(sf::RenderWindow& window) {
 }
 
 bool Statistics::loadResources() {
-    return loadStatistics();  // Delegate to the private loader
+    return loadStatistics();
 }
 
 bool Statistics::loadStatistics() {
     std::ifstream file(STAT_FILE_PATH);
 
     if (!file.is_open()) {
-        // If file doesn't exist, initialize with default values
+
         stats["High Score"] = DEFAULT_HIGH_SCORE;
         stats["Games Played"] = DEFAULT_GAMES_PLAYED;
         stats["Total Time"] = DEFAULT_TOTAL_TIME;

@@ -7,11 +7,11 @@
 
 class Statistics {
 public:
-    bool show(sf::RenderWindow& window);  // Public method to show statistics screen
+    bool show(sf::RenderWindow& window);  
     bool loadResources();
-    bool loadStatistics();                   // Public method to load statistics
+    bool loadStatistics();                  
 private:             
-    bool saveStatistics();                // Private method for saving statistics
+    bool saveStatistics();                
 
     std::map<std::string, int> stats;
 };

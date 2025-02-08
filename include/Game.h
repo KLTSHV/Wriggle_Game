@@ -27,6 +27,9 @@ public:
     sf::RenderWindow window;
     void resetGame();
     bool isGameRunning = false;
+    // Метод для установки выбранного скина (вызывается из меню)
+    void setSelectedSkin(int index) { selectedSkinIndex = index; }
+    int getSelectedSkin() const { return selectedSkinIndex; }
 
 private:
     void processEvents();
@@ -43,7 +46,7 @@ private:
     void spawnWall();
     void handleWallCollisions();
     
-    // Музыка, игрок, змеии, стены, бонусы...
+    // Музыка, игрок, змеии, стены, бонусы
     sf::Music backgroundMusic;
     std::unique_ptr<Player> player;
     std::vector<std::unique_ptr<Snake>> snakes;
@@ -57,19 +60,19 @@ private:
     sf::Text timerText;
     float elapsedGameTime;
 
-    // --- 1) "Красный" прогресс-бар (у вас уже был) ---
+    // Основной прогресс-бар
     sf::RectangleShape progressBar;
     float progressBarFill;
     sf::RectangleShape progressBarOutline;
 
-    // --- 2) "Оранжевый" прогресс-бар для усилений ---
+    // Прогресс-бар для усилений
     sf::RectangleShape powerProgressBar;
     sf::RectangleShape powerProgressBarOutline;
     bool  powerUpBarActive      = false;  // Отображается ли сейчас полоса
     float powerUpTimeRemaining  = 0.f;    // Сколько секунд осталось бонусу
     float powerUpTimeMax        = 0.f;    // Максимальное время этого бонуса
 
-    // --- 3) Иконка усиления, выводимая возле оранжевой полосы ---
+    // Иконка усиления
     sf::Texture powerUpIconTexture;
     sf::Sprite  powerUpIconSprite;
     bool  powerUpIconActive      = false; // Показать ли иконку сейчас
@@ -78,7 +81,6 @@ private:
     // иконка показывается столько же, сколько длится бонус. 
     // Если бонус моментальный (erase), показываем иконку на короткий промежуток
 
-    // Таймеры
     float dashTimer;
     float snakeSpawnTimer;
     float powerUpSpawnTimer;
@@ -90,6 +92,7 @@ private:
     float snakeSpawnDuration;
     float powerUpSpawnDuration;
     float POWER_PROGRESS_INCREMENT;
+    int selectedSkinIndex = 0; 
 };
 
 #endif // GAME_H

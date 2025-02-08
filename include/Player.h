@@ -5,16 +5,13 @@
 #include <vector>
 #include <memory>
 
-
 class Wall;
 
 class Player : public sf::Drawable {
 public:
     Player();
 
-
     void resetDash();
-
     void setPosition(float x, float y);
     void move(float dx, float dy, const std::vector<std::unique_ptr<Wall>>& walls, float deltaTime);
     void dash(int direction, const std::vector<std::unique_ptr<Wall>>& walls);
@@ -28,6 +25,7 @@ public:
     float returnSpeed();
     void makeInvincible();
     void makeSpeededUp();
+    void setSkin(int skinIndex);
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     sf::FloatRect getGlobalBounds() const;
     sf::Sprite sprite;

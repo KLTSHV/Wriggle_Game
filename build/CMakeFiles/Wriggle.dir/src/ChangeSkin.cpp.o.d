@@ -1034,6 +1034,6 @@ CMakeFiles/Wriggle.dir/src/ChangeSkin.cpp.o: \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Graphics/Sprite.hpp \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Graphics/Text.hpp \
   /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Graphics/VertexBuffer.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Constants.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/iostream \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/istream \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Constants.h
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/istream

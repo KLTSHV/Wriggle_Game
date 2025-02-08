@@ -3,14 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
-// Forward declare the Game class instead of including Game.h here
 class Game;
 
 class Menu {
 public:
     bool showWelcomeScreen(sf::RenderWindow& window, Game& game);
     
-    void handleChangeSkin(sf::RenderWindow& window);
+    void handleChangeSkin(sf::RenderWindow& window, Game& game);
     void handleStatistics(sf::RenderWindow& window);
 };
 

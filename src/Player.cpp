@@ -1,4 +1,3 @@
-// Player.cpp
 #include "../include/Player.h"
 #include "../include/Wall.h"
 #include <iostream>
@@ -13,7 +12,7 @@ Player::Player() :
     canDash(true), 
     dashDistance(DASH_DISTANCE),
     dashTimer(0) {
-    texture.loadFromFile("../assets/skin_1.png");
+    texture.loadFromFile("../assets/skin_1.png"); //По умолчанию
     sprite.setTexture(texture);
     sprite.setScale(NORMAL_SCALE_X, NORMAL_SCALE_Y);
 }
@@ -65,18 +64,16 @@ void Player::move(float dx, float dy, const std::vector<std::unique_ptr<Wall>>& 
     // Обновляем позицию спрайта
     sprite.setPosition(originalPos);
 
-    // Реализация телепортации (wrap-around) с учетом размеров спрайта
+    // Реализация телепортации с учетом размеров спрайта
     sf::FloatRect spriteBounds = sprite.getGlobalBounds();
     sf::Vector2f pos = sprite.getPosition();
 
-    // Горизонтальный wrap-around:
     if (pos.x + spriteBounds.width < 0) {  
         pos.x = WINDOW_WIDTH;
     } else if (pos.x > WINDOW_WIDTH) {
         pos.x = -spriteBounds.width;
     }
 
-    // Вертикальный wrap-around:
     if (pos.y + spriteBounds.height < 0) {  
         pos.y = WINDOW_HEIGHT;
     } else if (pos.y > WINDOW_HEIGHT) {
@@ -90,7 +87,7 @@ void Player::move(float dx, float dy, const std::vector<std::unique_ptr<Wall>>& 
 void Player::resetDash() {
     if (dashTimer >= DASH_COOLDOWN) {
         canDash = true;
-        dashTimer = 0; // Reset timer after dash is available again
+        dashTimer = 0;
     }
 }
 
@@ -167,14 +164,14 @@ void Player::dash(int direction, const std::vector<std::unique_ptr<Wall>>& walls
     // Определяем вектор дэша в зависимости от направления
     float dx = 0, dy = 0;
     switch (direction) {
-        case 0: dy = -dashDistance; break;              // Up
-        case 1: dx = dashDistance; dy = -dashDistance; break; // Up-Right
-        case 2: dx = dashDistance; break;                // Right
-        case 3: dx = dashDistance; dy = dashDistance; break;  // Down-Right
-        case 4: dy = dashDistance; break;                // Down
-        case 5: dx = -dashDistance; dy = dashDistance; break; // Down-Left
-        case 6: dx = -dashDistance; break;               // Left
-        case 7: dx = -dashDistance; dy = -dashDistance; break; // Up-Left
+        case 0: dy = -dashDistance; break;              // Вверх
+        case 1: dx = dashDistance; dy = -dashDistance; break; // Вверх-вправо
+        case 2: dx = dashDistance; break;                // Вправо
+        case 3: dx = dashDistance; dy = dashDistance; break;  // Вправо-вниз
+        case 4: dy = dashDistance; break;                // Вниз
+        case 5: dx = -dashDistance; dy = dashDistance; break; // Вниз-влево
+        case 6: dx = -dashDistance; break;               // Влево
+        case 7: dx = -dashDistance; dy = -dashDistance; break; // Влево-вверх
         default: break;
     }
     
@@ -218,4 +215,20 @@ void Player::dash(int direction, const std::vector<std::unique_ptr<Wall>>& walls
     sprite.setPosition(newPos);
     canDash = false;
     dashTimer = 0;
+}
+void Player::setSkin(int skinIndex) {
+    // Проверяем корректность индекса
+    if (skinIndex < 0 || skinIndex >= static_cast<int>(CHANGESKIN_SKIN_PATHS.size())) {
+        std::cerr << "Invalid skin index: " << skinIndex << std::endl;
+        return;
+    }
+    // Загружаем текстуру из выбранного пути
+    if (!texture.loadFromFile(CHANGESKIN_SKIN_PATHS[skinIndex])) {
+        std::cerr << "Error loading skin from " << CHANGESKIN_SKIN_PATHS[skinIndex] << std::endl;
+        return;
+    }
+    // Устанавливаем текстуру для спрайта
+    sprite.setTexture(texture, true);
+    // Приводим масштаб к стандартном
+    sprite.setScale(NORMAL_SCALE_X, NORMAL_SCALE_Y);
 }
