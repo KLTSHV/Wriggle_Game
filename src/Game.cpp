@@ -225,7 +225,7 @@ void Game::update() {
 }
 
 void Game::adjustDifficultyLevel() {
-    if (difficultyLevel <= 5) {
+    if (difficultyLevel < BORDER_DIFFICULTY_LEVEL) {
         snakeSpawnDuration -= DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE;
         difficultyLevel++;
         std::cout << difficultyLevel << std::endl;
@@ -627,7 +627,7 @@ void Game::resetGame() {
     powerUpIconActive       = false;
     powerUpIconTimeRemaining = 0.f;
 
-    this->saveStatistics("statistics.txt");
+    this->saveStatistics(STAT_FILE_PATH);
 
     bool newGame = menu->showWelcomeScreen(window, *this);
     if (newGame) {

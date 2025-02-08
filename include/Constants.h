@@ -40,6 +40,15 @@ const std::vector<std::string> CHANGESKIN_SKIN_PATHS = {"../assets/skin_2.png", 
 
 
 // Константы Game
+
+constexpr int DIFFICULTY_LEVEL_UP_INTERVAL = 20;
+constexpr int MAX_DIFFICULTY_LEVEL = 10;
+constexpr int BORDER_DIFFICULTY_LEVEL = 5;
+constexpr float DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.4f;
+constexpr float DIFFICULTY_POWERUP_SPAWN_DURATION_DECREASE = 1.0f;
+constexpr float BORDER_DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.1f;
+constexpr float BORDER_DIFFICULTY_POWERUP_SPAWN_DURATION_DECREASE = 0.5f;
+
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 600;
 constexpr int FONT_SIZE = 24;
@@ -52,7 +61,7 @@ constexpr int PROGRESSBAR_POSITION_Y = 50;
 constexpr float PROGRESS_BAR_WIDTH = 200.f;
 constexpr float PROGRESS_BAR_HEIGHT = 15.f;
 constexpr float PROGRESS_BAR_OUTLINE_THICKNESS = 2.f;
-constexpr float PROGRESS_INCREMENT = PROGRESS_BAR_WIDTH / 30.f;
+constexpr float PROGRESS_INCREMENT = PROGRESS_BAR_WIDTH / DIFFICULTY_LEVEL_UP_INTERVAL;
 const sf::Color PROGRESS_BAR_FILL_COLOR = sf::Color::Red;
 const sf::Color PROGRESS_BAR_OUTLINE_COLOR = sf::Color::White;
 
@@ -71,7 +80,7 @@ const sf::Color POWERUP_BAR_FILL_COLOR   = sf::Color(255, 165, 0);
 const sf::Color POWERUP_BAR_OUTLINE_COLOR = sf::Color::White;
 constexpr float POWERUP_BAR_OUTLINE_THICKNESS = 2.f;
 
-constexpr float SNAKE_SPAWN_DURATION_INITIAL = 3.0f;
+constexpr float SNAKE_SPAWN_DURATION_INITIAL = 2.8f;
 constexpr float POWER_UP_SPAWN_DURATION_INITIAL = 9.0f;
 constexpr float DIAGONAL_SPEED_FACTOR = 1.0f / 1.414213562f;
 constexpr float WALL_MIN_LENGTH = 100.0f;
@@ -80,14 +89,6 @@ constexpr float WALL_MIN_OFFSET = 50.0f;
 constexpr float WALL_THICKNESS = 20.0f;
 constexpr int WALL_AMOUNT_MIN = 4;
 constexpr int WALL_AMOUNT_MAX = 8;
-
-constexpr int DIFFICULTY_LEVEL_UP_INTERVAL = 30;
-constexpr int MAX_DIFFICULTY_LEVEL = 10;
-constexpr int BORDER_DIFFICULTY_LEVEL = 5;
-constexpr float DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.4f;
-constexpr float DIFFICULTY_POWERUP_SPAWN_DURATION_DECREASE = 1.0f;
-constexpr float BORDER_DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.1f;
-constexpr float BORDER_DIFFICULTY_POWERUP_SPAWN_DURATION_DECREASE = 0.5f;
 
 constexpr float SNAKE_SPEED_MIN = 50.0f;
 constexpr float SNAKE_SPEED_MAX = 350.0f;
@@ -138,7 +139,7 @@ const float SNAKE_FADE_RATE = 100.f;
 
 
 // Константы Statistics
-const std::string STAT_FILE_PATH = "statistics.txt";
+const std::string STAT_FILE_PATH = "../statistics.txt";
 const int STAT_TITLE_FONT_SIZE = 40;
 const int STAT_BUTTON_FONT_SIZE = 30;
 const int STAT_TEXT_FONT_SIZE = 30;
