@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include "../include/Constants.h"
+#include <SFML/Audio.hpp>
 
 bool Statistics::show(sf::RenderWindow& window) {
     if (!loadResources()) { 
@@ -24,6 +25,12 @@ bool Statistics::show(sf::RenderWindow& window) {
     backButton.setFillColor(STAT_TEXT_COLOR);
     backButton.setPosition(STAT_BACK_BUTTON_POSITION);
 
+    // Флаг для отслеживания наведения на кнопку
+    bool wasHoveredBack = false;
+
+    // коэффициент интерполяции
+    const float animationSpeed = 0.1f;
+
     std::vector<sf::Text> statsTexts;
     int yPosition = STAT_TEXT_POSITION.y;
     for (const auto& stat : stats) {
@@ -33,6 +40,40 @@ bool Statistics::show(sf::RenderWindow& window) {
         yPosition += STAT_TEXT_Y_INCREMENT;
         statsTexts.push_back(statText);
     }
+
+    // Лямбда-функция для обновления анимации интерактивного текста
+    auto updateInteractiveText = [&](sf::Text &text, bool &wasHovered, const sf::Color &defaultColor) {
+        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        bool isHovered = text.getGlobalBounds().contains(mousePos);
+
+        // Целевой масштаб и цвет при наведении
+        float targetScale = isHovered ? 1.1f : 1.0f;
+        sf::Color targetColor = isHovered ? HOVER_TEXT_COLOR : defaultColor;
+
+        // Плавное изменение масштаба
+        sf::Vector2f currentScale = text.getScale();
+        float newScale = currentScale.x + (targetScale - currentScale.x) * animationSpeed;
+        text.setScale(newScale, newScale);
+
+        // Плавное изменение цвета
+        sf::Color currentColor = text.getFillColor();
+        auto lerp = [&](sf::Uint8 current, sf::Uint8 target) -> sf::Uint8 {
+            float c = static_cast<float>(current);
+            float t = static_cast<float>(target);
+            c += (t - c) * animationSpeed;
+            return static_cast<sf::Uint8>(c);
+        };
+
+        sf::Color newColor(
+            lerp(currentColor.r, targetColor.r),
+            lerp(currentColor.g, targetColor.g),
+            lerp(currentColor.b, targetColor.b),
+            255
+        );
+        text.setFillColor(newColor);
+
+        wasHovered = isHovered;
+    };
 
     while (window.isOpen()) {
         sf::Event event;
@@ -53,6 +94,9 @@ bool Statistics::show(sf::RenderWindow& window) {
             }
         }
 
+        // Обновляем анимацию для кнопки "Back"
+        updateInteractiveText(backButton, wasHoveredBack, STAT_TEXT_COLOR);
+
         window.clear();
         window.draw(title);
         window.draw(backButton);
@@ -64,6 +108,7 @@ bool Statistics::show(sf::RenderWindow& window) {
 
     return false;
 }
+
 
 bool Statistics::loadResources() {
     return loadStatistics();

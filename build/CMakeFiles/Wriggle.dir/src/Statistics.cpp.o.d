@@ -1057,4 +1057,22 @@ CMakeFiles/Wriggle.dir/src/Statistics.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/sstream \
-  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Constants.h
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/src/../include/Constants.h \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/Export.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/Listener.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/Music.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundStream.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundSource.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/AlResource.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/OutputSoundFile.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/Sound.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundBuffer.hpp \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/set \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundBufferRecorder.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundRecorder.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundFileFactory.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundFileFactory.inl \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundFileReader.hpp \
+  /Users/egorkoltysev/Desktop/PROG/Wriggle/build/_deps/sfml-src/include/SFML/Audio/SoundFileWriter.hpp

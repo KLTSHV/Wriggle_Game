@@ -9,18 +9,20 @@
 #include <ctime>
 #include <SFML/Graphics.hpp>
 
-const std::string FONT_PATH = "../assets/arial.ttf";
+const std::string FONT_PATH = "../assets/Audex.ttf";
 const std::string POWERUP_STOP_SNAKES_LABEL = "../assets/stop_snakes_label.png";
 const std::string POWERUP_SPEED_UP_LABEL = "../assets/speed_up_label.png";
 const std::string POWERUP_SHRINK_LABEL = "../assets/shrink_label.png";
 const std::string POWERUP_ERASE_LABEL = "../assets/erase_label.png";
 const std::string POWERUP_INVINCIBILITY_LABEL = "../assets/invincibility_label.png";
 const std::string BACKGROUND_AUDIO = "../assets/BackgroundAudio.mp3";
+const std::string SOUND_CHOOSE = "../assets/Hover.mp3";
 
 const int FRAME_RATE_LIMIT = 60;
 
 
 // Константы ChangeSkin
+constexpr float DEFAULT_SKIN_SCALE = 0.08f;
 const unsigned int CHANGESKIN_TITLE_FONT_SIZE = 40;
 const unsigned int CHANGESKIN_SKIN_FONT_SIZE = 20;
 const unsigned int CHANGESKIN_SELECTED_FONT_SIZE = 18;
@@ -44,7 +46,7 @@ const std::vector<std::string> CHANGESKIN_SKIN_PATHS = {"../assets/skin_2.png", 
 constexpr int DIFFICULTY_LEVEL_UP_INTERVAL = 20;
 constexpr int MAX_DIFFICULTY_LEVEL = 10;
 constexpr int BORDER_DIFFICULTY_LEVEL = 5;
-constexpr float DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.4f;
+constexpr float DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.25f;
 constexpr float DIFFICULTY_POWERUP_SPAWN_DURATION_DECREASE = 1.0f;
 constexpr float BORDER_DIFFICULTY_SNAKE_SPAWN_DURATION_DECREASE = 0.1f;
 constexpr float BORDER_DIFFICULTY_POWERUP_SPAWN_DURATION_DECREASE = 0.5f;
@@ -80,7 +82,7 @@ const sf::Color POWERUP_BAR_FILL_COLOR   = sf::Color(255, 165, 0);
 const sf::Color POWERUP_BAR_OUTLINE_COLOR = sf::Color::White;
 constexpr float POWERUP_BAR_OUTLINE_THICKNESS = 2.f;
 
-constexpr float SNAKE_SPAWN_DURATION_INITIAL = 2.8f;
+constexpr float SNAKE_SPAWN_DURATION_INITIAL = 2.4f;
 constexpr float POWER_UP_SPAWN_DURATION_INITIAL = 9.0f;
 constexpr float DIAGONAL_SPEED_FACTOR = 1.0f / 1.414213562f;
 constexpr float WALL_MIN_LENGTH = 100.0f;
@@ -99,6 +101,7 @@ constexpr int SNAKE_SEGMENT_AMOUNT_MAX = 25;
 
 
 // Константы Menu
+inline const sf::Color HOVER_TEXT_COLOR(220,200,230);
 constexpr int TITLE_FONT_SIZE = 50;
 constexpr int OPTION_FONT_SIZE = 30;
 inline const sf::Color TEXT_COLOR = sf::Color::White;

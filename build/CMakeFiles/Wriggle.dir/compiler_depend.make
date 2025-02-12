@@ -7178,6 +7178,7 @@ CMakeFiles/Wriggle.dir/src/Statistics.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wr
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/print \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/queue \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/ratio \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/set \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/sstream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/stack \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/usr/include/c++/v1/stddef.h \
@@ -7356,6 +7357,23 @@ CMakeFiles/Wriggle.dir/src/Statistics.cpp.o: /Users/egorkoltysev/Desktop/PROG/Wr
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdarg.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdint.h \
+  _deps/sfml-src/include/SFML/Audio.hpp \
+  _deps/sfml-src/include/SFML/Audio/AlResource.hpp \
+  _deps/sfml-src/include/SFML/Audio/Export.hpp \
+  _deps/sfml-src/include/SFML/Audio/InputSoundFile.hpp \
+  _deps/sfml-src/include/SFML/Audio/Listener.hpp \
+  _deps/sfml-src/include/SFML/Audio/Music.hpp \
+  _deps/sfml-src/include/SFML/Audio/OutputSoundFile.hpp \
+  _deps/sfml-src/include/SFML/Audio/Sound.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundBuffer.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundBufferRecorder.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundFileFactory.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundFileFactory.inl \
+  _deps/sfml-src/include/SFML/Audio/SoundFileReader.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundFileWriter.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundRecorder.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundSource.hpp \
+  _deps/sfml-src/include/SFML/Audio/SoundStream.hpp \
   _deps/sfml-src/include/SFML/Config.hpp \
   _deps/sfml-src/include/SFML/Graphics.hpp \
   _deps/sfml-src/include/SFML/Graphics/BlendMode.hpp \
