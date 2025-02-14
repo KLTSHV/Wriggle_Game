@@ -13,7 +13,8 @@ public:
     sf::FloatRect getGlobalBounds() const;
 private:
     sf::RectangleShape wallShape;
-     float thickness = WALL_THICKNESS; 
+    sf::Texture wallTexture; // Текстура для стены
+    float thickness = WALL_THICKNESS;
 };
 
 #endif // WALL_H

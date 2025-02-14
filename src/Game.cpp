@@ -93,6 +93,12 @@ void Game::processEvents() {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
+
+        // Если игра на паузе, игнорируем остальные события
+        if (gamePaused) {
+            return;
+        }
+
         // Обработка dash
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::LShift) {
             int dashDirection = -1;
@@ -125,16 +131,36 @@ void Game::processEvents() {
         }
     }
 }
-
 void Game::update() {
+    if (gamePaused) {
+        // Если пауза завершена
+        if (pauseClock.getElapsedTime() >= pauseDuration) {
+            // Восстанавливаем состояние игры
+            gamePaused = false;
+
+            // Сбрасываем цвет змеи обратно на зеленый
+            for (auto& snake : snakes) {
+                for (auto& segment : snake->getSegments()) {
+                    segment.setFillColor(SNAKE_COLOR);
+                }
+            }
+
+            // Возвращаемся в главное меню
+            resetGame();
+        }
+        return;  // Если игра на паузе, остальной код не выполняется
+    }
+
     float deltaTime = gameClock.restart().asSeconds();
 
+    // Обновляем таймеры, змей, и другое
     dashTimer += deltaTime;
     snakeSpawnTimer += deltaTime;
     powerUpSpawnTimer += deltaTime;
     difficultyLevelTimer += deltaTime;
 
     player->updateTimers(deltaTime);
+    handlePlayerMovement(deltaTime);
 
     // Обновляем змей, если они не удалены
     if (!erasingSnakesProcess && !snakes.empty()) {
@@ -186,9 +212,6 @@ void Game::update() {
             powerUpIconActive = false;
         }
     }
-
-    // Движение игрока
-    handlePlayerMovement(deltaTime);
 
     // Спавн змей
     if (!erasingSnakesProcess) {
@@ -339,21 +362,33 @@ void Game::spawnPowerUp() {
     newPowerUp->setPosition(x, y);
     powerUps.push_back(std::move(newPowerUp));
 }
-
 void Game::handleCollisions() {
     // Столкновения со змеями
     if (!snakes.empty()) {
         for (auto it = snakes.begin(); it != snakes.end();) {
             bool collided = false;
-            const auto &snakeSegments = (*it)->getSegments();
+            auto &snakeSegments = (*it)->getSegments(); // Убираем const ссылку
 
-            for (const auto &seg : snakeSegments) {
+            for (auto &seg : snakeSegments) {  // Используем неконстантную ссылку на сегмент
                 if (player->getGlobalBounds().intersects(seg.getGlobalBounds())) {
-                    // Проверка неуязвимости игрока
-                    if (!player->isInvincible()) {
-                        resetGame();
-                        return;
+                    // Воспроизводим звук столкновения
+                    if (!collisionSoundBuffer.loadFromFile(SOUND_CHOOSE)) {
+                        std::cout << "Error loading collision sound" << std::endl;
+                    } else {
+                        collisionSound.setBuffer(collisionSoundBuffer);
+                        collisionSound.play();
                     }
+
+                    // Включаем паузу
+                    gamePaused = true;
+                    pauseClock.restart();
+
+                    // Меняем цвет змеи на красный
+                    for (auto &segment : snakeSegments) {  // Используем неконстантную ссылку
+                        segment.setFillColor(SNAKE_DEAD_COLOR);
+                    }
+
+                    // Снимаем эффект столкновения
                     collided = true;
                     break;
                 }
@@ -362,24 +397,13 @@ void Game::handleCollisions() {
             if (!collided) {
                 ++it;
             } else {
-                // Можем убрать змею, если хотим
-                // it = snakes.erase(it);
-                // а можем оставить
                 ++it;
             }
         }
     }
-
-    // Столкновения с бонусами
-    for (auto it = powerUps.begin(); it != powerUps.end();) {
-        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) {
-            activatePowerUp(*(*it));
-            it = powerUps.erase(it);
-        } else {
-            ++it;
-        }
-    }
 }
+
+
 
 void Game::spawnWall() {
     bool validPosition = false;
@@ -443,7 +467,7 @@ void Game::handleWallCollisions() {
 
 void Game::activatePowerUp(PowerUp &powerUp) {
     std::cout << "Power-up activated!" << std::endl;
-    int effect = rand() % 5; // пример для теста
+    int effect = rand() % 5;
     powerUpBarActive = false;
     powerUpTimeRemaining = 0.f;
     powerUpTimeMax = 0.f;

@@ -39,7 +39,7 @@ public:
     void makeResume();
     void updateTimers(float elapsedTime);
 
-    const std::vector<sf::CircleShape>& getSegments() const;
+    std::vector<sf::CircleShape>& getSegments();
 
 protected:
 

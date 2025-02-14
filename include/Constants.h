@@ -17,9 +17,9 @@ const std::string POWERUP_ERASE_LABEL = "../assets/erase_label.png";
 const std::string POWERUP_INVINCIBILITY_LABEL = "../assets/invincibility_label.png";
 const std::string BACKGROUND_AUDIO = "../assets/BackgroundAudio.mp3";
 const std::string SOUND_CHOOSE = "../assets/Hover.mp3";
+const std::string WALL_TEXTURE_PATH = "../assets/brick_texture.png";
 
 const int FRAME_RATE_LIMIT = 60;
-
 
 // Константы ChangeSkin
 constexpr float DEFAULT_SKIN_SCALE = 0.08f;
@@ -98,6 +98,9 @@ constexpr float SNAKE_SEGMENT_SIZE_MIN = 8.0f;
 constexpr float SNAKE_SEGMENT_SIZE_MAX = 20.0f;
 constexpr int SNAKE_SEGMENT_AMOUNT_MIN = 5;
 constexpr int SNAKE_SEGMENT_AMOUNT_MAX = 25;
+const sf::Color SNAKE_COLOR = sf::Color::Green;
+const sf::Color SNAKE_DEAD_COLOR = sf::Color::Red;
+
 
 
 // Константы Menu

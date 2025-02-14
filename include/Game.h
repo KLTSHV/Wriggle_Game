@@ -45,6 +45,12 @@ private:
     void adjustDifficultyLevel();
     void spawnWall();
     void handleWallCollisions();
+
+    sf::SoundBuffer collisionSoundBuffer;
+    sf::Sound collisionSound;
+    bool gamePaused = false;
+    sf::Clock pauseClock;
+    sf::Time pauseDuration = sf::seconds(3.0f);
     
     // Музыка, игрок, змеии, стены, бонусы
     sf::Music backgroundMusic;

@@ -1,7 +1,11 @@
 #include "../include/Wall.h"
 
 Wall::Wall() {
-    wallShape.setFillColor(sf::Color(128, 128, 128)); // Серый цвет
+    if (!wallTexture.loadFromFile(WALL_TEXTURE_PATH)) {
+        // Ошибка при загрузке текстуры
+        std::cerr << "Failed to load wall texture!" << std::endl;
+    }
+    wallShape.setTexture(&wallTexture); // Устанавливаем текстуру
 }
 
 void Wall::setPosition(float x, float y) {

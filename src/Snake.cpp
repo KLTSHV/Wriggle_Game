@@ -139,6 +139,6 @@ void Snake::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     }
 }
 
-const std::vector<sf::CircleShape>& Snake::getSegments() const {
+std::vector<sf::CircleShape>& Snake::getSegments() {
     return segments;
 }
