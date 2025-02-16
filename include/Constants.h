@@ -16,7 +16,8 @@ const std::string POWERUP_SHRINK_LABEL = "../assets/shrink_label.png";
 const std::string POWERUP_ERASE_LABEL = "../assets/erase_label.png";
 const std::string POWERUP_INVINCIBILITY_LABEL = "../assets/invincibility_label.png";
 const std::string BACKGROUND_AUDIO = "../assets/BackgroundAudio.mp3";
-const std::string SOUND_CHOOSE = "../assets/Hover.mp3";
+const std::string SOUND_ACTIVATION = "../assets/powerup_activation.mp3";
+const std::string SOUND_COLLISION = "../assets/Hover.mp3";
 const std::string WALL_TEXTURE_PATH = "../assets/brick_texture.png";
 
 const int FRAME_RATE_LIMIT = 60;

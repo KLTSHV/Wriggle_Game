@@ -15,7 +15,7 @@ bool Menu::showWelcomeScreen(sf::RenderWindow& window, Game& game) {
         return false;
     }
 
-    sf::Text title("Arcade Game", font, TITLE_FONT_SIZE);
+    sf::Text title("Wriggle", font, TITLE_FONT_SIZE);
     title.setFillColor(TEXT_COLOR);
     title.setPosition(TITLE_X, TITLE_Y);
 

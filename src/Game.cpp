@@ -9,7 +9,7 @@
 #include "../include/Constants.h"
 
 Game::Game() 
-    : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Arcade Game"), 
+    : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Wriggle"), 
       snakeSpawnTimer(0),
       powerUpSpawnTimer(0),
       isGameRunning(false),
@@ -363,16 +363,35 @@ void Game::spawnPowerUp() {
     powerUps.push_back(std::move(newPowerUp));
 }
 void Game::handleCollisions() {
+    // Столкновения с бонусами
+    for (auto it = powerUps.begin(); it != powerUps.end();) {
+        if (player->getGlobalBounds().intersects((*it)->getGlobalBounds())) {
+            // Активация бонуса
+            activatePowerUp(**it);
+            if (!collisionSoundBuffer.loadFromFile(SOUND_ACTIVATION)) {
+                        std::cout << "Error loading activation sound" << std::endl;
+                    } else {
+                        collisionSound.setBuffer(collisionSoundBuffer);
+                        collisionSound.play();
+                    }
+
+            // Удаление бонуса после активации
+            it = powerUps.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
     // Столкновения со змеями
     if (!snakes.empty()) {
         for (auto it = snakes.begin(); it != snakes.end();) {
             bool collided = false;
-            auto &snakeSegments = (*it)->getSegments(); // Убираем const ссылку
+            auto &snakeSegments = (*it)->getSegments();
 
-            for (auto &seg : snakeSegments) {  // Используем неконстантную ссылку на сегмент
-                if (player->getGlobalBounds().intersects(seg.getGlobalBounds())) {
+            for (auto &seg : snakeSegments) {  
+                if (player->getGlobalBounds().intersects(seg.getGlobalBounds()) && !player->isInvincible()) {
                     // Воспроизводим звук столкновения
-                    if (!collisionSoundBuffer.loadFromFile(SOUND_CHOOSE)) {
+                    if (!collisionSoundBuffer.loadFromFile(SOUND_COLLISION)) {
                         std::cout << "Error loading collision sound" << std::endl;
                     } else {
                         collisionSound.setBuffer(collisionSoundBuffer);
@@ -384,7 +403,7 @@ void Game::handleCollisions() {
                     pauseClock.restart();
 
                     // Меняем цвет змеи на красный
-                    for (auto &segment : snakeSegments) {  // Используем неконстантную ссылку
+                    for (auto &segment : snakeSegments) {
                         segment.setFillColor(SNAKE_DEAD_COLOR);
                     }
 
@@ -402,6 +421,7 @@ void Game::handleCollisions() {
         }
     }
 }
+
 
 
 
@@ -467,7 +487,7 @@ void Game::handleWallCollisions() {
 
 void Game::activatePowerUp(PowerUp &powerUp) {
     std::cout << "Power-up activated!" << std::endl;
-    int effect = rand() % 5;
+    int effect = rand()%5;
     powerUpBarActive = false;
     powerUpTimeRemaining = 0.f;
     powerUpTimeMax = 0.f;
